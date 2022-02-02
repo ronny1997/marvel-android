@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Comparador gasolineras</string>
+    <string name="dialog_error_title">Se ha producido un error.</string>
+
+</resources>

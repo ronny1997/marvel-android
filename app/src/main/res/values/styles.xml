@@ -27,5 +27,13 @@
         <item name="bottomSheetStyle">@style/ModalBottomSheet</item>
     </style>
 
+    <style name="MarvelCharacterTitleItem">
+        <item name="android:fontFamily">@font/marvel_family</item>
+        <item name="android:textSize">100sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 
 </resources>

@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Fade
 import androidx.transition.Slide
 import androidx.transition.Transition
@@ -42,8 +44,13 @@ class CharactersListFragment : BaseFragment() {
     ): View {
         binding = FragmentCharactersListBinding.inflate(inflater, container, false)
         binding.viewModel = charactersListViewModel
+        initView()
         animations(container)
         return binding.root
+    }
+
+    private fun initView() {
+        binding.rvCharactersList.layoutManager = GridLayoutManager(requireContext(), 3)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +59,7 @@ class CharactersListFragment : BaseFragment() {
             charactersListViewModel.charactersUiState.collect { charactersUiState ->
                 if (charactersUiState.isLoading) {
                 }
-                if (charactersUiState.error.isNotBlank()) {
+                if (charactersUiState.error.isNotEmpty()) {
                     binding.prbCharacters.visibility = View.GONE
                 }
                 charactersUiState.charactersListDto?.let {
@@ -65,24 +72,20 @@ class CharactersListFragment : BaseFragment() {
     }
 
     private fun initListeners() {
-        binding.gvCharactersList.setOnScrollListener(object : AbsListView.OnScrollListener {
-            override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
-            }
-
-            override fun onScroll(
-                view: AbsListView?,
-                firstVisibleItem: Int,
-                visibleItemCount: Int,
-                totalItemCount: Int
-            ) {
-                val lastVisiblePosition = binding.gvCharactersList.lastVisiblePosition + 1
-                if (lastVisiblePosition != 0 && lastVisiblePosition == totalItemCount && binding.prbCharacters.visibility == View.GONE) {
-                    binding.prbCharacters.visibility = View.VISIBLE
-                    charactersListViewModel.lastVisibility.value = totalItemCount
+        val layoutManager = binding.rvCharactersList.layoutManager as GridLayoutManager
+        binding.rvCharactersList.addOnScrollListener((object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val lastPositionVisible = layoutManager.findLastVisibleItemPosition() + 1
+                recyclerView.adapter?.itemCount?.let {
+                    if (it == lastPositionVisible && binding.prbCharacters.visibility == View.GONE) {
+                        binding.prbCharacters.visibility = View.VISIBLE
+                        charactersListViewModel.lastVisibility.value = it
+                    }
                 }
             }
 
-        })
+        }))
     }
 
     private fun animations(parent: ViewGroup?) {

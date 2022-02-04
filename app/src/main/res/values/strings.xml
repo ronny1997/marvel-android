@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Comparador gasolineras</string>
+    <string name="app_name">MARVEL</string>
     <string name="dialog_error_title">Se ha producido un error.</string>
+    <string name="unknown_Error">Error desconocido</string>
+    <string name="character_marvel">character marvel</string>
 
 </resources>

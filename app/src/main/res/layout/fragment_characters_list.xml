@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <GridView
-        android:id="@+id/gv_characters_list"
+    <data>
+        <variable
+            name="character"
+            type="com.ronny.marvel.features.characters.model.CharactersListDto" />
+        <variable
+            name="viewModel"
+            type="com.ronny.marvel.features.characters.characterslist.CharactersListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:horizontalSpacing="5dp"
-        android:numColumns="4"
-        android:stretchMode="spacingWidthUniform"
-        tools:listitem="@layout/characters_item"/>
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <GridView
+            android:id="@+id/gv_characters_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp"
+            android:numColumns="3"
+            app:characters="@{character.data.characterItem}"
+            tools:listitem="@layout/characters_item"
+            android:gravity="center"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

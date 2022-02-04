@@ -11,6 +11,7 @@
     <color name="red">#8E1600</color>
 
     <color name="black_transparent_50">#80000000</color>
+    <color name="red_transparent_50">#80f0141e</color>
     <color name="transparent">#00000000</color>
 
 </resources>

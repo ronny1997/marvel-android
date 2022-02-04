@@ -1,10 +1,9 @@
 package com.ronny.marvel.core.common
 
 object Constants {
-    const val BASE_URL = "https://www.zaragoza.es/sede/servicio/"
-    const val LATITUDE_DEFAULT = 41.6517501
-    const val LONGITUDE_DEFAULT = -0.9300005
-
+    const val BASE_URL = "https://gateway.marvel.com/v1/public/"
+    const val PUBLIC_KEY = "40c0f1172b2c2c7fc17e73d2d7a8b016"
+    const val LIMIT_CHARACTERS = "21"
 
 
 }

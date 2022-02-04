@@ -4,6 +4,7 @@ import android.content.Context
 import com.ronny.marvel.AndroidApplication
 import com.ronny.marvel.BuildConfig
 import com.ronny.marvel.core.common.Constants
+import com.ronny.marvel.features.characters.CharacterRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -19,6 +20,10 @@ class AppModule(private val application: AndroidApplication) {
     @Singleton
     fun provideApplicationContext(): Context = application
 
+    @Provides
+    @Singleton
+    fun provideCharacterRepository(dataSource: CharacterRepository.CharacterRepositoryImpl): CharacterRepository =
+        dataSource
 
     @Provides
     @Singleton
@@ -33,7 +38,8 @@ class AppModule(private val application: AndroidApplication) {
     private fun createClient(): OkHttpClient {
         val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
-            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
             okHttpClientBuilder.addInterceptor(loggingInterceptor)
         }
         return okHttpClientBuilder.build()

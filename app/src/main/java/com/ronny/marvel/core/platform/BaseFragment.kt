@@ -27,7 +27,6 @@ abstract class BaseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         observeNavigation(getViewModel())
-        setupSnackBar(this, getViewModel().getSnackbarError(), Snackbar.LENGTH_LONG)
     }
 
     abstract fun getViewModel(): BaseViewModel

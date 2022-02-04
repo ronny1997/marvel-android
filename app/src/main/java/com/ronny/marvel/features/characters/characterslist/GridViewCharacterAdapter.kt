@@ -39,7 +39,3 @@ class GridViewCharacterAdapter : BaseAdapter() {
         return charactersItemBinding
     }
 }
-
-class CharacterViewHolder(private val binding: CharactersItemBinding) {
-
-}

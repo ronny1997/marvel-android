@@ -1,5 +1,6 @@
 package com.ronny.marvel.features.characters
 
+
 import com.ronny.marvel.BuildConfig.PRIVATE_API_KEY
 import com.ronny.marvel.core.common.Constants.LIMIT_CHARACTERS
 import com.ronny.marvel.core.common.Constants.PUBLIC_KEY
@@ -16,14 +17,16 @@ import javax.inject.Inject
 
 interface CharacterRepository {
     fun getCharacter(
-
+        offset: Int
     ): Flow<Resource<Failure, CharactersListDto>>
 
     class CharacterRepositoryImpl @Inject constructor(
         private val remoteServiceRemote: CharacterRemoteService,
         private val networkHandler: NetworkHandler
     ) : CharacterRepository {
-        override fun getCharacter(): Flow<Resource<Failure, CharactersListDto>> = flow {
+        override fun getCharacter(
+            offset: Int
+        ): Flow<Resource<Failure, CharactersListDto>> = flow {
             when (networkHandler.isNetworkAvailable()) {
                 true -> {
                     val ts = Date().time.toString()
@@ -31,6 +34,7 @@ interface CharacterRepository {
                     emit(
                         request(
                             remoteServiceRemote.getCharactersList(
+                                offset.toString(),
                                 LIMIT_CHARACTERS,
                                 ts,
                                 PUBLIC_KEY,

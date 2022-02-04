@@ -7,15 +7,16 @@ import com.ronny.marvel.features.characters.characterslist.GridViewCharacterAdap
 import com.ronny.marvel.features.characters.model.CharacterItem
 import com.ronny.marvel.features.characters.model.Thumbnail
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.coroutineScope
 
 object CharacterBinding {
 
     @BindingAdapter("app:picasso_url")
     @JvmStatic
     fun url(view: ImageView, thumbnail: Thumbnail?) {
-        Picasso.get()
+       /* Picasso.get()
             .load("${thumbnail?.path?.replace("http","https")}.${thumbnail?.extension}")
-            .into(view)
+            .into(view)*/
     }
 
     @BindingAdapter("app:characters")

@@ -10,6 +10,7 @@ interface CharacterApi {
 
     @GET("characters")
     fun getCharactersList(
+        @Query("offset")  offset: String,
         @Query("limit") limit: String ,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,

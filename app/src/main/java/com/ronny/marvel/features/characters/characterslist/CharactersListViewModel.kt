@@ -5,9 +5,7 @@ import com.ronny.marvel.core.common.Resource
 import com.ronny.marvel.core.exception.Failure
 import com.ronny.marvel.core.platform.BaseViewModel
 import com.ronny.marvel.features.characters.characterslist.usecase.GetCharactersUseCase
-import com.ronny.marvel.features.characters.model.CharacterItem
-import com.ronny.marvel.features.characters.model.CharactersListDto
-import com.ronny.marvel.features.characters.model.toCharacterItemView
+import com.ronny.marvel.features.characters.model.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,6 +16,7 @@ class CharactersListViewModel @Inject constructor(
 
     private val _charactersUiState = MutableStateFlow(CharactersListUiState())
     val charactersUiState: StateFlow<CharactersListUiState> = _charactersUiState
+    private val list = arrayListOf<CharacterItemView>()
 
     val lastVisibility = MutableStateFlow(0)
 
@@ -37,12 +36,11 @@ class CharactersListViewModel @Inject constructor(
                 is Resource.Loading -> _charactersUiState.value =
                     CharactersListUiState(isLoading = true)
                 is Resource.Error -> CharactersListUiState(error = handleFailure(it.error))
-
                 is Resource.Success -> {
                     when (it.data?.code) {
                         200 -> {
                             _charactersUiState.value =
-                                CharactersListUiState(charactersListDto = it.data)
+                                CharactersListUiState(charactersListView = it.data)
                         }
                         else -> {
                             CharactersListUiState(
@@ -59,14 +57,14 @@ class CharactersListViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun goToCharacterDetail(character: CharacterItem) {
-        navigate(CharactersListFragmentDirections.goToCharacterDetailFragment(character.toCharacterItemView()))
+    fun goToCharacterDetail(character: CharacterItemView) {
+        navigate(CharactersListFragmentDirections.goToCharacterDetailFragment(character))
     }
 
 }
 
 data class CharactersListUiState(
-    val charactersListDto: CharactersListDto? = null,
+    val charactersListView: CharactersListView? = null,
     val error: String = "",
     val isLoading: Boolean = false
 )

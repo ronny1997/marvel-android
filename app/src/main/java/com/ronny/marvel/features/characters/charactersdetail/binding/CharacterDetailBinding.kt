@@ -1,4 +1,4 @@
-package com.ronny.marvel.features.characters.characterslist.binding
+package com.ronny.marvel.features.characters.charactersdetail.binding
 
 import android.icu.number.Scale
 import android.widget.ImageView
@@ -8,27 +8,23 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.ronny.marvel.R
+import com.ronny.marvel.features.characters.charactersdetail.ItemsAdapter
 import com.ronny.marvel.features.characters.characterslist.CharacterAdapter
 import com.ronny.marvel.features.characters.model.CharacterItemView
 import com.ronny.marvel.features.characters.model.CharactersListView
+import com.ronny.marvel.features.characters.model.ComicsView
 import com.ronny.marvel.features.characters.model.ThumbnailView
 
-object CharacterBinding {
+object CharacterDetailBinding {
 
-    @BindingAdapter("app:coil_url")
+    @BindingAdapter("app:comics_items")
     @JvmStatic
-    fun coilUrl(view: ImageView, thumbnail: ThumbnailView?) {
-        view.load("${thumbnail?.path?.replace("http", "https")}.${thumbnail?.extension}") {
-            crossfade(true)
-            placeholder(R.drawable.ic_launcher_foreground)
+    fun comics(view: RecyclerView, items: ComicsView?) {
+        if (view.adapter !is ItemsAdapter) {
+            view.adapter = ItemsAdapter()
         }
-    }
-
-    @BindingAdapter("app:characters")
-    @JvmStatic
-    fun characters(view: RecyclerView, listCharacterItem: CharactersListView?) {
-        listCharacterItem?.let {
-            (view.adapter as CharacterAdapter).updateData(it)
+        items?.let {
+            (view.adapter as ItemsAdapter).updateData(items)
         }
     }
 }

@@ -3,7 +3,7 @@ package com.ronny.marvel.features.characters.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CharacterItem(
+data class CharacterItemDto(
     @SerializedName("id")
     val id: Int? = -1,
     @SerializedName("name")
@@ -13,28 +13,22 @@ data class CharacterItem(
     @SerializedName("modified")
     val modified: String? = "",
     @SerializedName("thumbnail")
-    val thumbnail: Thumbnail? = Thumbnail(),
+    val thumbnail: ThumbnailDto? = ThumbnailDto(),
     @SerializedName("resourceURI")
     val resourceURI: String? = "",
     @SerializedName("comics")
-    val comics: Comics? = Comics(),
-    @SerializedName("series")
-    val series: Series? = Series(),
+    val comics: ComicsDto? = ComicsDto(),
     @SerializedName("stories")
-    val stories: Stories? = Stories(),
-    @SerializedName("urls")
-    val urls: List<Url>? = arrayListOf()
+    val stories: StoriesDto? = StoriesDto(),
 )
 
-fun CharacterItem.toCharacterItemView(): CharacterItemView = CharacterItemView(
+fun CharacterItemDto.toCharacterItemView(): CharacterItemView = CharacterItemView(
     id,
     name,
     description,
     modified,
-    thumbnail,
+    thumbnail?.toThumbnailView(),
     resourceURI,
-    comics,
-    series,
-    stories,
-    urls
+    comics?.toComicsView(),
+    stories?.toStoriesView(),
 )

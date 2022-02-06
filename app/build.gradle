@@ -89,7 +89,7 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.38.1'
 
     //picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'io.coil-kt:coil:1.4.0'
 
     //fragment
     def fragment_version = "1.4.1"
@@ -106,6 +106,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    //SwipyRefreshLayout
+    implementation "com.github.omadahealth:swipy:1.2.3@aar"
 
 
 }

@@ -3,5 +3,7 @@
     <string name="dialog_error_title">Se ha producido un error.</string>
     <string name="unknown_Error">Error desconocido</string>
     <string name="character_marvel">character marvel</string>
+    <string name="description">Description</string>
+    <string name="comics">Comics</string>
 
 </resources>

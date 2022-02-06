@@ -1,26 +1,31 @@
 package com.ronny.marvel.features.characters.characterslist
 
-import android.graphics.drawable.Drawable
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ImageView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ronny.marvel.R
 import com.ronny.marvel.core.extensions.getLayoutInflater
 import com.ronny.marvel.databinding.CharactersItemBinding
-import com.ronny.marvel.features.characters.model.CharacterItem
-import com.squareup.picasso.Picasso
-import okhttp3.internal.notifyAll
+import com.ronny.marvel.features.characters.model.CharacterItemDto
+import com.ronny.marvel.features.characters.model.CharacterItemView
+import com.ronny.marvel.features.characters.model.CharactersListView
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
-    private val listCharacterItem: ArrayList<CharacterItem> = arrayListOf()
-    var clickListener: (ImageView, CharacterItem?) -> Unit = { _, _ -> }
+    private var etag = ""
+    private val listCharacterItem: ArrayList<CharacterItemView> = arrayListOf()
+    var clickListener: (ImageView, CharacterItemView?) -> Unit = { _, _ -> }
 
-    fun updateData(items: List<CharacterItem> = arrayListOf()) {
-        listCharacterItem.addAll(items)
-        this.notifyItemInserted(listCharacterItem.size)
+    fun updateData(items: CharactersListView) {
+        if( items.etag != etag){
+            items.etag?.let {
+                etag = it
+            }
+            items.data?.characterItem?.let {
+                listCharacterItem.addAll(ArrayList(it))
+            }
+
+            this.notifyItemInserted(listCharacterItem.size)
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder =
@@ -43,7 +48,10 @@ class CharacterViewHolder(
     private val charactersItemBinding:
     CharactersItemBinding
 ) : RecyclerView.ViewHolder(charactersItemBinding.root) {
-    fun bind(characterItem: CharacterItem, clickListener: (ImageView, CharacterItem?) -> Unit) {
+    fun bind(
+        characterItem: CharacterItemView,
+        clickListener: (ImageView, CharacterItemView?) -> Unit
+    ) {
         charactersItemBinding.characterItem = characterItem
         charactersItemBinding.imvCharacters.setOnClickListener {
             clickListener(

@@ -7,7 +7,7 @@
 
         <variable
             name="character"
-            type="com.ronny.marvel.features.characters.model.CharactersListDto" />
+            type="com.ronny.marvel.features.characters.model.CharactersListView" />
 
         <variable
             name="viewModel"
@@ -18,21 +18,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_characters_list"
+        <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
+            android:id="@+id/swp_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:characters="@{character.data.characterItem}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/characters_item" />
+            app:srl_direction="bottom">
 
-        <ProgressBar
-            android:id="@+id/prb_characters"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_characters_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:characters="@{character}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/characters_item" />
+        </com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

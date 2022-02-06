@@ -33,12 +33,20 @@ class CharacterDetailFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailCharactersBinding.inflate(inflater, container, false)
+        initListeners()
         return binding.root
+    }
+
+    private fun initListeners() {
+        binding.tvComic.setOnClickListener {
+            charactersListViewModel.back()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val animation = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+        val animation =
+            TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         sharedElementEnterTransition = animation
         sharedElementReturnTransition = animation
     }

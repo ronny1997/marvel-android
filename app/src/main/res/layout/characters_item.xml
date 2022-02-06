@@ -6,44 +6,57 @@
     <data>
 
         <variable
-            name="characterItem"
+            name="characterItemView"
             type="com.ronny.marvel.features.characters.model.CharacterItemView" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_item"
+    <FrameLayout
         android:layout_width="125dp"
         android:layout_height="200dp"
-        android:orientation="vertical"
-        tools:ignore="UseCompoundDrawables">
+        android:layout_marginHorizontal="@dimen/grid_0_5"
+        android:layout_marginVertical="@dimen/grid_0_25">
 
-        <ImageView
-            android:id="@+id/imv_characters"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view"
             android:layout_width="125dp"
             android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/character_marvel"
-            android:transitionName="image_small"
-            app:coil_url='@{characterItem.thumbnail}'
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:cardPreventCornerOverlap="false"
+            android:transitionName="@{@string/character_transition_name(characterItemView.id)}">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
 
-        <TextView
-            style="@style/MarvelCharacterTitleItem"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/red_transparent_50"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:padding="5dp"
-            android:text='@{characterItem.name}'
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imv_characters"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/character_marvel"
+                    app:coil_url='@{characterItemView.thumbnail}'
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/MarvelCharacterTitleItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/red_transparent_50"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:text='@{characterItemView.name}'
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 
 </layout>

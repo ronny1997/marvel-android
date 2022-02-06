@@ -19,7 +19,7 @@
         android:id="@+id/characterDetailFragment"
         android:name="com.ronny.marvel.features.characters.charactersdetail.CharacterDetailFragment"
         android:label="CharactersList"
-        tools:layout="@layout/fragment_characters_list">
+        tools:layout="@layout/fragment_detail_characterst">
         <argument
             android:name="characterItemView"
             app:argType="com.ronny.marvel.features.characters.model.CharacterItemView" />

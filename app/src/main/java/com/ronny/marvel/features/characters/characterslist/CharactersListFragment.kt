@@ -2,13 +2,16 @@ package com.ronny.marvel.features.characters.characterslist
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
+import com.ronny.marvel.R
 import com.ronny.marvel.core.common.ViewModelFactory
 import com.ronny.marvel.core.platform.BaseFragment
 import com.ronny.marvel.core.platform.BaseViewModel
@@ -20,7 +23,8 @@ import javax.inject.Inject
 class CharactersListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCharactersListBinding
-    private var adapter: CharacterAdapter? = null
+    private var characterAdapter: CharacterAdapter = CharacterAdapter()
+    private var etag: String = ""
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<CharactersListViewModel>
@@ -32,6 +36,13 @@ class CharactersListFragment : BaseFragment() {
         appComponent.inject(this)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough().apply {
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,21 +50,16 @@ class CharactersListFragment : BaseFragment() {
     ): View {
         binding = FragmentCharactersListBinding.inflate(inflater, container, false)
         binding.viewModel = charactersListViewModel
-        initView()
-        initListeners()
         return binding.root
-    }
-
-    private fun initView() {
-        binding.rvCharactersList.layoutManager = GridLayoutManager(requireContext(), 3)
-        adapter ?: run {
-            adapter = CharacterAdapter()
-        }
-        binding.rvCharactersList.adapter = adapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+        initListeners()
+        initListeners()
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
         lifecycleScope.launchWhenStarted {
             charactersListViewModel.charactersUiState.collect { charactersUiState ->
                 if (charactersUiState.isLoading) {
@@ -65,23 +71,46 @@ class CharactersListFragment : BaseFragment() {
                 }
                 charactersUiState.charactersListView?.let {
                     binding.swpLayout.isRefreshing = false
-                    binding.character = it
+                    it.etag?.let { eTag ->
+                        if (etag != eTag) {
+                            etag = eTag
+                            binding.character = it
+                        }
+                    }
                 }
             }
         }
         initListeners()
     }
 
+    private fun initView() {
+        binding.rvCharactersList.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = characterAdapter
+        }
+    }
+
     private fun initListeners() {
         binding.swpLayout.setOnRefreshListener {
-            adapter?.itemCount?.let {
+            characterAdapter.itemCount.let {
                 charactersListViewModel.lastVisibility.value = it
             }
         }
-        adapter?.let {
-            it.clickListener = { imgV, id ->
+        characterAdapter.let {
+            it.clickListener = { view, id ->
                 if (!binding.swpLayout.isRefreshing) {
-                    fragmentNavigatorExtras = FragmentNavigatorExtras(imgV to "image_big")
+                    exitTransition = MaterialElevationScale(false).apply {
+                        duration =
+                            resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+                    }
+                    reenterTransition = MaterialElevationScale(true).apply {
+                        duration =
+                            resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+                    }
+                    val characterDetailTransitionName =
+                        getString(R.string.character_detail_transition_name)
+                    fragmentNavigatorExtras =
+                        FragmentNavigatorExtras(view to characterDetailTransitionName)
                     id?.let { itemId ->
                         charactersListViewModel.goToCharacterDetail(itemId)
                     }
@@ -89,9 +118,5 @@ class CharactersListFragment : BaseFragment() {
             }
         }
     }
-
-
-
     override fun getViewModel(): BaseViewModel = charactersListViewModel
-
 }

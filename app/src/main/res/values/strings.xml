@@ -6,4 +6,8 @@
     <string name="description">Description</string>
     <string name="comics">Comics</string>
 
+    <!--CharacterDetailFragment-->
+    <string name="character_transition_name">character_card_%1$s</string>
+    <string name="character_detail_transition_name">character_card_detail</string>
+
 </resources>

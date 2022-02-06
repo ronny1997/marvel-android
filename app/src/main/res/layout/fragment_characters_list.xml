@@ -13,11 +13,6 @@
             name="viewModel"
             type="com.ronny.marvel.features.characters.characterslist.CharactersListViewModel" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
             android:id="@+id/swp_layout"
             android:layout_width="match_parent"
@@ -30,9 +25,10 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 app:characters="@{character}"
+                android:transitionGroup="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/characters_item" />
         </com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

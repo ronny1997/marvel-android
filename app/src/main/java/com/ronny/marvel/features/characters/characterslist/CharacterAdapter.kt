@@ -1,5 +1,6 @@
 package com.ronny.marvel.features.characters.characterslist
 
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import com.ronny.marvel.features.characters.model.CharactersListView
 class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
     private var etag = ""
     private val listCharacterItem: ArrayList<CharacterItemView> = arrayListOf()
-    var clickListener: (ImageView, CharacterItemView?) -> Unit = { _, _ -> }
+    var clickListener: (View, CharacterItemView?) -> Unit = { _, _ -> }
 
     fun updateData(items: CharactersListView) {
         if( items.etag != etag){
@@ -50,12 +51,12 @@ class CharacterViewHolder(
 ) : RecyclerView.ViewHolder(charactersItemBinding.root) {
     fun bind(
         characterItem: CharacterItemView,
-        clickListener: (ImageView, CharacterItemView?) -> Unit
+        clickListener: (View, CharacterItemView?) -> Unit
     ) {
-        charactersItemBinding.characterItem = characterItem
-        charactersItemBinding.imvCharacters.setOnClickListener {
+        charactersItemBinding.characterItemView = characterItem
+        charactersItemBinding.cardView.setOnClickListener {
             clickListener(
-                charactersItemBinding.imvCharacters,
+                it,
                 characterItem
             )
         }

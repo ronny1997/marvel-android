@@ -1,12 +1,16 @@
 package com.ronny.marvel.features.characters.charactersdetail
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.transition.MaterialContainerTransform
+import com.ronny.marvel.R
 import com.ronny.marvel.core.common.ViewModelFactory
+import com.ronny.marvel.core.extensions.themeColor
 import com.ronny.marvel.core.platform.BaseFragment
 import com.ronny.marvel.core.platform.BaseViewModel
 import com.ronny.marvel.databinding.FragmentDetailCharactersBinding
@@ -33,22 +37,17 @@ class CharacterDetailFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailCharactersBinding.inflate(inflater, container, false)
-        initListeners()
         return binding.root
-    }
-
-    private fun initListeners() {
-        binding.tvComic.setOnClickListener {
-            charactersListViewModel.back()
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val animation =
-            TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = animation
-        sharedElementReturnTransition = animation
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_host_fragment
+            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            scrimColor = Color.TRANSPARENT
+            setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +57,5 @@ class CharacterDetailFragment : BaseFragment() {
             binding.characterItemView = it
         }
     }
-
     override fun getViewModel(): BaseViewModel = charactersListViewModel
 }

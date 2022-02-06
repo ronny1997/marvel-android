@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Fade
@@ -26,6 +28,7 @@ import javax.inject.Inject
 class CharactersListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCharactersListBinding
+    private var adapter: CharacterAdapter? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<CharactersListViewModel>
@@ -45,12 +48,16 @@ class CharactersListFragment : BaseFragment() {
         binding = FragmentCharactersListBinding.inflate(inflater, container, false)
         binding.viewModel = charactersListViewModel
         initView()
+        initListeners()
         animations(container)
         return binding.root
     }
 
     private fun initView() {
         binding.rvCharactersList.layoutManager = GridLayoutManager(requireContext(), 3)
+        adapter = CharacterAdapter()
+        binding.rvCharactersList.adapter = adapter
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,8 +91,16 @@ class CharactersListFragment : BaseFragment() {
                     }
                 }
             }
-
         }))
+        adapter?.let {
+            it.clickListener = { imgV, id ->
+                fragmentNavigatorExtras = FragmentNavigatorExtras(imgV to "image_big")
+                id?.let { itemId->
+                    charactersListViewModel.goToCharacterDetail(itemId)
+                }
+
+            }
+        }
     }
 
     private fun animations(parent: ViewGroup?) {

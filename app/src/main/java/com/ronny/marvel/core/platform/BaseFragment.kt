@@ -23,6 +23,7 @@ abstract class BaseFragment : Fragment() {
     val appComponent: ApplicationComponent by lazy(mode = LazyThreadSafetyMode.NONE) {
         (activity?.application as AndroidApplication).appComponent
     }
+    var fragmentNavigatorExtras: FragmentNavigator.Extras = FragmentNavigatorExtras()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -48,7 +49,9 @@ abstract class BaseFragment : Fragment() {
     inline fun <reified T : ViewModel> ViewModelFactory<T>.get(): T =
         ViewModelProvider(this@BaseFragment, this).get(T::class.java)
 
-    open fun getExtras(): FragmentNavigator.Extras = FragmentNavigatorExtras()
+    open fun getExtras(): FragmentNavigator.Extras {
+        return fragmentNavigatorExtras
+    }
 
     fun alertDialogError(message: String) {
         val builder: AlertDialog.Builder? = activity?.let {

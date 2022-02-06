@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetCharacters @Inject constructor(private val repository: CharacterRepository) :
-    FlowUseCase<GetCharacters.Params, CharactersListDto>(Dispatchers.IO) {
+class GetCharactersUseCase @Inject constructor(private val repository: CharacterRepository) :
+    FlowUseCase<GetCharactersUseCase.Params, CharactersListDto>(Dispatchers.IO) {
     override fun execute(parameters: Params): Flow<Resource<Failure, CharactersListDto>> = repository.getCharacter(parameters.offset)
 
     data class Params(val offset: Int = 0)

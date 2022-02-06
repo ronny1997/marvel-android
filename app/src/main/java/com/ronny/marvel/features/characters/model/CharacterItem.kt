@@ -5,23 +5,36 @@ import com.google.gson.annotations.SerializedName
 
 data class CharacterItem(
     @SerializedName("id")
-    val id: Int?,
+    val id: Int? = -1,
     @SerializedName("name")
-    val name: String?,
+    val name: String? = "",
     @SerializedName("description")
-    val description: String?,
+    val description: String? = "",
     @SerializedName("modified")
-    val modified: String?,
+    val modified: String? = "",
     @SerializedName("thumbnail")
-    val thumbnail: Thumbnail?,
+    val thumbnail: Thumbnail? = Thumbnail(),
     @SerializedName("resourceURI")
-    val resourceURI: String?,
+    val resourceURI: String? = "",
     @SerializedName("comics")
-    val comics: Comics?,
+    val comics: Comics? = Comics(),
     @SerializedName("series")
-    val series: Series?,
+    val series: Series? = Series(),
     @SerializedName("stories")
-    val stories: Stories?,
+    val stories: Stories? = Stories(),
     @SerializedName("urls")
-    val urls: List<Url>?
+    val urls: List<Url>? = arrayListOf()
+)
+
+fun CharacterItem.toCharacterItemView(): CharacterItemView = CharacterItemView(
+    id,
+    name,
+    description,
+    modified,
+    thumbnail,
+    resourceURI,
+    comics,
+    series,
+    stories,
+    urls
 )

@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ronny.marvel.R
@@ -15,6 +16,7 @@ import okhttp3.internal.notifyAll
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
     private val listCharacterItem: ArrayList<CharacterItem> = arrayListOf()
+    var clickListener: (ImageView, CharacterItem?) -> Unit = { _, _ -> }
 
     fun updateData(items: List<CharacterItem> = arrayListOf()) {
         listCharacterItem.addAll(items)
@@ -31,7 +33,7 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
         )
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) =
-        holder.bind(listCharacterItem[position])
+        holder.bind(listCharacterItem[position], clickListener)
 
     override fun getItemCount(): Int = listCharacterItem.size
 
@@ -41,7 +43,13 @@ class CharacterViewHolder(
     private val charactersItemBinding:
     CharactersItemBinding
 ) : RecyclerView.ViewHolder(charactersItemBinding.root) {
-    fun bind(characterItem: CharacterItem) {
+    fun bind(characterItem: CharacterItem, clickListener: (ImageView, CharacterItem?) -> Unit) {
         charactersItemBinding.characterItem = characterItem
+        charactersItemBinding.imvCharacters.setOnClickListener {
+            clickListener(
+                charactersItemBinding.imvCharacters,
+                characterItem
+            )
+        }
     }
 }

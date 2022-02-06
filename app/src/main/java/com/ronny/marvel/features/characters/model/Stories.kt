@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class Stories(
     @SerializedName("available")
-    val available: Int?,
+    val available: Int? = -1,
     @SerializedName("collectionURI")
-    val collectionURI: String?,
+    val collectionURI: String? = "",
     @SerializedName("returned")
-    val returned: Int?
+    val returned: Int? = -1
 )

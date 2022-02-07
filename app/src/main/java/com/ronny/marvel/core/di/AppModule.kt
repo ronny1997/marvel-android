@@ -7,6 +7,8 @@ import com.ronny.marvel.core.common.Constants
 import com.ronny.marvel.features.characters.CharacterRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,11 +16,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val application: AndroidApplication) {
+@InstallIn(SingletonComponent::class)
+object AppModule {
 
-    @Provides
-    @Singleton
-    fun provideApplicationContext(): Context = application
 
     @Provides
     @Singleton

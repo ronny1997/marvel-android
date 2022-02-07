@@ -7,7 +7,7 @@
 
         <variable
             name="character"
-            type="com.ronny.marvel.features.characters.model.CharactersListDto" />
+            type="com.ronny.marvel.features.characters.model.CharactersListView" />
 
         <variable
             name="viewModel"
@@ -16,23 +16,41 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_characters_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:characters="@{character.data.characterItem}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/characters_item" />
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradien">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/view_toolbar" />
 
         <ProgressBar
-            android:id="@+id/prb_characters"
-            android:layout_width="match_parent"
+            android:id="@+id/prb_character"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
+            android:id="@+id/swp_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srl_direction="bottom">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_characters_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:transitionGroup="true"
+                app:characters="@{character}"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:listitem="@layout/characters_item" />
+        </com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

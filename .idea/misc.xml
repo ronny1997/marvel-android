@@ -34,15 +34,23 @@
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/comparadorprecioscombustible/app/src/main/res/layout/view_settings_toolbar.xml" value="0.25" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/comparadorprecioscombustible/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.34444444444444444" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/comparadorprecioscombustible/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3111111111111111" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/drawable-v24/bg_gradien.xml" value="0.102" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1445" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/drawable-v24/splash_background.xml" value="0.102" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/drawable/ic__loader_animate.xml" value="0.215" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/drawable/ic_hulk.xml" value="0.1665" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1445" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/drawable/ic_marvel_logo.xml" value="0.102" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/font/marvel_family.xml" value="0.4111111111111111" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/activity__nav_host.xml" value="0.2560790273556231" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/characters_item.xml" value="0.33" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/comics_items.xml" value="0.27717391304347827" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/custom_error_dialog.xml" value="0.2563323201621074" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/fragment_characters_list.xml" value="0.33" />
-        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/fragment_detail_characters.xml" value="0.4048913043478261" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/fragment_detail_characters.xml" value="0.25" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/fragment_fuel_station.xml" value="0.2560790273556231" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/fragment_list_fuel_station.xml" value="0.2560790273556231" />
+        <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/layout/view_toolbar.xml" value="0.2563323201621074" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1445" />
         <entry key="..\:/Users/montanor/Documents/Personal_Proyect/marvel-android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1445" />
       </map>

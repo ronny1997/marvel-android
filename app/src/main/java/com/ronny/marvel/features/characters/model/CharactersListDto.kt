@@ -5,17 +5,27 @@ import com.google.gson.annotations.SerializedName
 
 data class CharactersListDto(
     @SerializedName("code")
-    val code: Int?= -1,
+    val code: Int? = -1,
     @SerializedName("status")
-    val status: String?="",
+    val status: String? = "",
     @SerializedName("copyright")
-    val copyright: String?="",
+    val copyright: String? = "",
     @SerializedName("attributionText")
-    val attributionText: String?="",
+    val attributionText: String? = "",
     @SerializedName("attributionHTML")
-    val attributionHTML: String?="",
+    val attributionHTML: String? = "",
     @SerializedName("etag")
-    val etag: String?="",
+    val etag: String? = "",
     @SerializedName("data")
-    val data: Data? = Data()
+    val data: DataDto? = DataDto()
+)
+
+fun CharactersListDto.toCharactersListView(): CharactersListView = CharactersListView(
+    code,
+    status,
+    copyright,
+    attributionText,
+    attributionHTML,
+    etag,
+    data?.toDataView()
 )

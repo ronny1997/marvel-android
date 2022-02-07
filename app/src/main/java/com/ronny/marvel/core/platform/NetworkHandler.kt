@@ -3,15 +3,12 @@ package com.ronny.marvel.core.platform
 import android.content.Context
 import android.net.NetworkCapabilities
 import com.ronny.marvel.core.extensions.connectivityManager
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-
-/**
- * Injectable class which returns information about the network connection state.
- */
 @Singleton
-class NetworkHandler @Inject constructor( private val context: Context) {
+class NetworkHandler @Inject constructor(@ApplicationContext private val context: Context) {
     fun isNetworkAvailable(): Boolean {
         val connectivityManager = context.connectivityManager
 

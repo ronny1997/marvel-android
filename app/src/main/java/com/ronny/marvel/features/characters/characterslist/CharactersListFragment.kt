@@ -58,13 +58,17 @@ class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapter
         lifecycleScope.launchWhenStarted {
             charactersListViewModel.charactersUiState.collect { charactersUiState ->
                 if (charactersUiState.isLoading) {
-
+                    if (!binding.swpLayout.isRefreshing) {
+                        binding.prbCharacter.visibility = View.VISIBLE
+                    }
                 }
                 if (charactersUiState.error.isNotEmpty()) {
+                    binding.prbCharacter.visibility = View.GONE
                     binding.swpLayout.isRefreshing = false
                     alertDialogError(charactersUiState.error)
                 }
                 charactersUiState.charactersListView?.let {
+                    binding.prbCharacter.visibility = View.GONE
                     binding.swpLayout.isRefreshing = false
                     binding.character = it
                 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,25 +18,19 @@ import com.ronny.marvel.core.common.ViewModelFactory
 import com.ronny.marvel.core.platform.BaseFragment
 import com.ronny.marvel.core.platform.BaseViewModel
 import com.ronny.marvel.databinding.FragmentCharactersListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class CharactersListFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCharactersListBinding
     private var characterAdapter: CharacterAdapter = CharacterAdapter()
     private var etag: String = ""
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<CharactersListViewModel>
+    private val charactersListViewModel: CharactersListViewModel by viewModels()
 
-    private val charactersListViewModel: CharactersListViewModel by lazy { viewModelFactory.get() }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        appComponent.inject(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

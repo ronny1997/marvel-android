@@ -6,10 +6,12 @@ import com.ronny.marvel.core.exception.Failure
 import com.ronny.marvel.core.platform.BaseViewModel
 import com.ronny.marvel.features.characters.characterslist.usecase.GetCharactersUseCase
 import com.ronny.marvel.features.characters.model.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CharactersListViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase
 ) : BaseViewModel() {

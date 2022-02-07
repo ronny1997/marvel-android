@@ -9,20 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.ronny.marvel.R
 import com.ronny.marvel.AndroidApplication
 import com.ronny.marvel.core.common.NavigationCommand
 import com.ronny.marvel.core.common.ViewModelFactory
-import com.ronny.marvel.core.di.ApplicationComponent
-import com.ronny.marvel.core.extensions.setupSnackBar
-
+import dagger.hilt.android.AndroidEntryPoint
 
 abstract class BaseFragment : Fragment() {
 
-    val appComponent: ApplicationComponent by lazy(mode = LazyThreadSafetyMode.NONE) {
-        (activity?.application as AndroidApplication).appComponent
-    }
     var fragmentNavigatorExtras: FragmentNavigator.Extras = FragmentNavigatorExtras()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -45,10 +39,6 @@ abstract class BaseFragment : Fragment() {
             }
         })
     }
-
-    inline fun <reified T : ViewModel> ViewModelFactory<T>.get(): T =
-        ViewModelProvider(this@BaseFragment, this).get(T::class.java)
-
     open fun getExtras(): FragmentNavigator.Extras {
         return fragmentNavigatorExtras
     }

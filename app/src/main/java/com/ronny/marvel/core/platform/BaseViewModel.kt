@@ -9,6 +9,7 @@ import com.ronny.marvel.core.common.NavigationCommand
 import com.ronny.marvel.core.exception.Failure
 import com.ronny.marvel.core.util.Event
 
+
 abstract class BaseViewModel : ViewModel() {
 
     private val navigation = MutableLiveData<Event<NavigationCommand>>()

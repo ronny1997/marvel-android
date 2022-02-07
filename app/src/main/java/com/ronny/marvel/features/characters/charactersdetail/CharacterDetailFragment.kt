@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.viewModels
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ronny.marvel.R
 import com.ronny.marvel.core.common.ViewModelFactory
@@ -16,21 +17,16 @@ import com.ronny.marvel.core.platform.BaseFragment
 import com.ronny.marvel.core.platform.BaseViewModel
 import com.ronny.marvel.databinding.FragmentDetailCharactersBinding
 import com.ronny.marvel.features.characters.model.CharacterItemView
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CharacterDetailFragment : BaseFragment() {
 
     private lateinit var binding: FragmentDetailCharactersBinding
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<CharacterDetailViewModel>
+    private val characterDetailViewModel: CharacterDetailViewModel by viewModels()
 
-    private val charactersListViewModel: CharacterDetailViewModel by lazy { viewModelFactory.get() }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        appComponent.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,5 +55,5 @@ class CharacterDetailFragment : BaseFragment() {
             binding.characterItemView = it
         }
     }
-    override fun getViewModel(): BaseViewModel = charactersListViewModel
+    override fun getViewModel(): BaseViewModel = characterDetailViewModel
 }

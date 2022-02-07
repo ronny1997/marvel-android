@@ -1,7 +1,5 @@
 package com.ronny.marvel.core.platform
 
-
-
 import com.ronny.marvel.core.common.Resource
 import com.ronny.marvel.core.exception.Failure
 import retrofit2.Call

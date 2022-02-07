@@ -7,6 +7,7 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ronny.marvel.R
 import com.ronny.marvel.core.common.ViewModelFactory
@@ -53,6 +54,7 @@ class CharacterDetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val characterItemView = arguments?.get("characterItemView") as CharacterItemView
+        ViewCompat.setTransitionName(binding.root,"character_card_${characterItemView.id}")
         characterItemView.let {
             binding.characterItemView = it
         }

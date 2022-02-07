@@ -9,6 +9,7 @@ import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.ronny.marvel.R
@@ -38,6 +39,7 @@ class CharactersListFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        exitTransition = Hold()
         enterTransition = MaterialFadeThrough().apply {
             duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
         }
@@ -110,7 +112,7 @@ class CharactersListFragment : BaseFragment() {
                     val characterDetailTransitionName =
                         getString(R.string.character_detail_transition_name)
                     fragmentNavigatorExtras =
-                        FragmentNavigatorExtras(view to characterDetailTransitionName)
+                        FragmentNavigatorExtras(view to view.transitionName)
                     id?.let { itemId ->
                         charactersListViewModel.goToCharacterDetail(itemId)
                     }

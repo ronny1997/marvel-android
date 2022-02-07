@@ -10,16 +10,15 @@ import com.ronny.marvel.features.characters.model.ItemView
 class ItemsAdapter : RecyclerView.Adapter<ComicsItemsBindingViewHolder>() {
     private val itemViewList: ArrayList<ItemView> = arrayListOf()
 
-    fun updateData(items: ComicsView) {
-            items.items?.let {
-                itemViewList.addAll(ArrayList(it))
-            }
-            this.notifyItemInserted(itemViewList.size)
-
-
+    fun updateData(items: List<ItemView>) {
+        itemViewList.addAll(ArrayList(items))
+        this.notifyItemInserted(itemViewList.size)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicsItemsBindingViewHolder =
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ComicsItemsBindingViewHolder =
         ComicsItemsBindingViewHolder(
             ComicsItemsBinding.inflate(
                 parent.getLayoutInflater(),

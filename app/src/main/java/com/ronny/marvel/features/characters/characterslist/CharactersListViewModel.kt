@@ -15,10 +15,8 @@ import javax.inject.Inject
 class CharactersListViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase
 ) : BaseViewModel() {
-
     private val _charactersUiState = MutableStateFlow(CharactersListUiState())
     val charactersUiState: StateFlow<CharactersListUiState> = _charactersUiState
-    private val list = arrayListOf<CharacterItemView>()
 
     val lastVisibility = MutableStateFlow(0)
 
@@ -37,28 +35,15 @@ class CharactersListViewModel @Inject constructor(
             when (it) {
                 is Resource.Loading -> _charactersUiState.value =
                     CharactersListUiState(isLoading = true)
-                is Resource.Error -> CharactersListUiState(error = handleFailure(it.error))
+                is Resource.Error -> _charactersUiState.value =
+                    CharactersListUiState(error = handleFailure(it.error))
                 is Resource.Success -> {
-                    when (it.data?.code) {
-                        200 -> {
-                            _charactersUiState.value =
-                                CharactersListUiState(charactersListView = it.data)
-                        }
-                        else -> {
-                            CharactersListUiState(
-                                error = handleFailure(
-                                    Failure.ServerError(
-                                        it.data?.code ?: 0, errorMessage = "Server error"
-                                    )
-                                )
-                            )
-                        }
-                    }
+                    _charactersUiState.value =
+                        CharactersListUiState(charactersListView = it.data)
                 }
             }
         }.launchIn(viewModelScope)
     }
-
     fun goToCharacterDetail(character: CharacterItemView) {
         navigate(CharactersListFragmentDirections.goToCharacterDetailFragment(character))
     }

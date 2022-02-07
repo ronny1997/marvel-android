@@ -9,78 +9,119 @@
             name="characterItemView"
             type="com.ronny.marvel.features.characters.model.CharacterItemView" />
     </data>
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/character_card_view"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:transitionName="@string/character_detail_transition_name">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradien">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/character_card_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/grid_1"
+            android:transitionName="@string/character_detail_transition_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imv_characters"
-                android:layout_width="0dp"
-                android:layout_height="400dp"
-                android:contentDescription="@string/character_marvel"
-                android:scaleType="centerInside"
-                android:transitionName="@{@string/character_detail_transition_name}"
-                app:coil_url='@{characterItemView.thumbnail}'
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_name_character"
-                style="@style/MarvelCharacterTitleItem"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/red_transparent_50"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:text='@{characterItemView.name}'
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@id/imv_characters"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_description"
-                style="@style/MarvelCharacterTitleItem"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/description"
-                android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name_character" />
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/grid_2"
+                android:paddingTop="@dimen/grid_3"
+                android:paddingBottom="@dimen/grid_3">
 
-            <TextView
-                android:id="@+id/tv_description_character"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text='@{characterItemView.description}'
-                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+                <ImageView
+                    android:id="@+id/imv_characters"
+                    android:layout_width="0dp"
+                    android:layout_height="400dp"
+                    android:contentDescription="@string/character_marvel"
+                    android:scaleType="centerInside"
+                    android:transitionName="@{@string/character_detail_transition_name}"
+                    app:coil_url='@{characterItemView.thumbnail}'
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_comic"
-                style="@style/MarvelCharacterTitleItem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/comics"
-                android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description_character" />
+                <TextView
+                    android:id="@+id/tv_name_character"
+                    style="@style/MarvelCharacterTitleItem"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/red_transparent_50"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="5dp"
+                    android:text='@{characterItemView.name}'
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@id/imv_characters"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_comic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:comics_items="@{characterItemView.comics}"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/tv_comic"
-                tools:listitem="@layout/comics_items" />
+                <TextView
+                    android:id="@+id/tv_description"
+                    style="@style/MarvelCharacterTitleItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/description"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_character" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/tv_description_character"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text='@{characterItemView.description}'
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+                <TextView
+                    android:id="@+id/tv_comic"
+                    style="@style/MarvelCharacterTitleItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/comics"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description_character" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_comic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:orientation="horizontal"
+                    app:items_view="@{characterItemView.comics.items}"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_comic"
+                    tools:listitem="@layout/comics_items" />
+
+                <TextView
+                    android:id="@+id/tv_stories"
+                    style="@style/MarvelCharacterTitleItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/stories"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_comic" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_stories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:orientation="horizontal"
+                    app:items_view="@{characterItemView.stories.items}"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_stories"
+                    tools:listitem="@layout/comics_items" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

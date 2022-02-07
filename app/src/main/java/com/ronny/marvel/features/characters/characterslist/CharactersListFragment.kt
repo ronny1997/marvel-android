@@ -18,19 +18,18 @@ import com.ronny.marvel.core.common.ViewModelFactory
 import com.ronny.marvel.core.platform.BaseFragment
 import com.ronny.marvel.core.platform.BaseViewModel
 import com.ronny.marvel.databinding.FragmentCharactersListBinding
+import com.ronny.marvel.features.characters.model.CharacterItemView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CharactersListFragment : BaseFragment() {
+class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapterListener {
 
     private lateinit var binding: FragmentCharactersListBinding
-    private var characterAdapter: CharacterAdapter = CharacterAdapter()
-    private var etag: String = ""
+    private var characterAdapter: CharacterAdapter = CharacterAdapter(this)
 
     private val charactersListViewModel: CharactersListViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +53,6 @@ class CharactersListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListeners()
-        initListeners()
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
         lifecycleScope.launchWhenStarted {
@@ -63,21 +61,15 @@ class CharactersListFragment : BaseFragment() {
 
                 }
                 if (charactersUiState.error.isNotEmpty()) {
-                    //show error
                     binding.swpLayout.isRefreshing = false
+                    alertDialogError(charactersUiState.error)
                 }
                 charactersUiState.charactersListView?.let {
                     binding.swpLayout.isRefreshing = false
-                    it.etag?.let { eTag ->
-                        if (etag != eTag) {
-                            etag = eTag
-                            binding.character = it
-                        }
-                    }
+                    binding.character = it
                 }
             }
         }
-        initListeners()
     }
 
     private fun initView() {
@@ -93,27 +85,26 @@ class CharactersListFragment : BaseFragment() {
                 charactersListViewModel.lastVisibility.value = it
             }
         }
-        characterAdapter.let {
-            it.clickListener = { view, id ->
-                if (!binding.swpLayout.isRefreshing) {
-                    exitTransition = MaterialElevationScale(false).apply {
-                        duration =
-                            resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-                    }
-                    reenterTransition = MaterialElevationScale(true).apply {
-                        duration =
-                            resources.getInteger(R.integer.reply_motion_duration_large).toLong()
-                    }
-                    val characterDetailTransitionName =
-                        getString(R.string.character_detail_transition_name)
-                    fragmentNavigatorExtras =
-                        FragmentNavigatorExtras(view to view.transitionName)
-                    id?.let { itemId ->
-                        charactersListViewModel.goToCharacterDetail(itemId)
-                    }
-                }
+    }
+
+    override fun clickListener(view: View, characterItemView: CharacterItemView?) {
+        if (!binding.swpLayout.isRefreshing) {
+            exitTransition = MaterialElevationScale(false).apply {
+                duration =
+                    resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            }
+            reenterTransition = MaterialElevationScale(true).apply {
+                duration =
+                    resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+            }
+            fragmentNavigatorExtras =
+                FragmentNavigatorExtras(view to view.transitionName)
+            characterItemView?.let {
+                charactersListViewModel.goToCharacterDetail(it)
             }
         }
     }
+
     override fun getViewModel(): BaseViewModel = charactersListViewModel
+
 }

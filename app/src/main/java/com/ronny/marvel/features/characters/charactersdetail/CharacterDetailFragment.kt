@@ -1,9 +1,7 @@
 package com.ronny.marvel.features.characters.charactersdetail
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +9,12 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ronny.marvel.R
-import com.ronny.marvel.core.common.ViewModelFactory
 import com.ronny.marvel.core.extensions.themeColor
 import com.ronny.marvel.core.platform.BaseFragment
 import com.ronny.marvel.core.platform.BaseViewModel
 import com.ronny.marvel.databinding.FragmentDetailCharactersBinding
 import com.ronny.marvel.features.characters.model.CharacterItemView
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class CharacterDetailFragment : BaseFragment() {

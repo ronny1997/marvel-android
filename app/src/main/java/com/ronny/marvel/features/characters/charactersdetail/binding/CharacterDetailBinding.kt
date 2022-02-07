@@ -4,17 +4,18 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ronny.marvel.features.characters.charactersdetail.ItemsAdapter
 import com.ronny.marvel.features.characters.model.ComicsView
+import com.ronny.marvel.features.characters.model.ItemView
 
 object CharacterDetailBinding {
 
-    @BindingAdapter("app:comics_items")
+    @BindingAdapter("app:items_view")
     @JvmStatic
-    fun comics(view: RecyclerView, items: ComicsView?) {
+    fun itemView(view: RecyclerView, items:  List<ItemView>?) {
         if (view.adapter !is ItemsAdapter) {
             view.adapter = ItemsAdapter()
         }
         items?.let {
-            (view.adapter as ItemsAdapter).updateData(items)
+            (view.adapter as ItemsAdapter).updateData(it)
         }
     }
 }

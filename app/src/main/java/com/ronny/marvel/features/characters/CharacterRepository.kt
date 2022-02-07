@@ -2,6 +2,7 @@ package com.ronny.marvel.features.characters
 
 
 import com.ronny.marvel.BuildConfig.PRIVATE_API_KEY
+import com.ronny.marvel.R
 import com.ronny.marvel.core.common.Constants.LIMIT_CHARACTERS
 import com.ronny.marvel.core.common.Constants.PUBLIC_KEY
 import com.ronny.marvel.core.common.Resource
@@ -21,7 +22,6 @@ interface CharacterRepository {
     fun getCharacter(
         offset: Int
     ): Flow<Resource<Failure, CharactersListView>>
-
     class CharacterRepositoryImpl @Inject constructor(
         private val remoteServiceRemote: CharacterRemoteService,
         private val networkHandler: NetworkHandler
@@ -49,7 +49,7 @@ interface CharacterRepository {
                         )
                     )
                 }
-                false -> emit(Resource.Error(Failure.NetworkConnection(errorMessage = "No Network")))
+                false -> emit(Resource.Error(Failure.NetworkConnection(errorMessage = R.string.internet_Error.toString())))
             }
         }
     }

@@ -10,13 +10,18 @@ import com.ronny.marvel.features.characters.model.CharacterItemDto
 import com.ronny.marvel.features.characters.model.CharacterItemView
 import com.ronny.marvel.features.characters.model.CharactersListView
 
-class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
+class CharacterAdapter(
+    private val listener: CharacterAdapterListener
+) : RecyclerView.Adapter<CharacterViewHolder>() {
     private var etag = ""
     private val listCharacterItem: ArrayList<CharacterItemView> = arrayListOf()
-    var clickListener: (View, CharacterItemView?) -> Unit = { _, _ -> }
+
+    interface CharacterAdapterListener {
+        fun clickListener (view: View, characterItemView: CharacterItemView?)
+    }
 
     fun updateData(items: CharactersListView) {
-        if( items.etag != etag){
+        if (items.etag != etag) {
             items.etag?.let {
                 etag = it
             }
@@ -39,7 +44,7 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterViewHolder>() {
         )
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) =
-        holder.bind(listCharacterItem[position], clickListener)
+        holder.bind(listCharacterItem[position], listener)
 
     override fun getItemCount(): Int = listCharacterItem.size
 
@@ -51,14 +56,9 @@ class CharacterViewHolder(
 ) : RecyclerView.ViewHolder(charactersItemBinding.root) {
     fun bind(
         characterItem: CharacterItemView,
-        clickListener: (View, CharacterItemView?) -> Unit
+        listener: CharacterAdapter.CharacterAdapterListener
     ) {
         charactersItemBinding.characterItemView = characterItem
-        charactersItemBinding.cardView.setOnClickListener {
-            clickListener(
-                it,
-                characterItem
-            )
-        }
+        charactersItemBinding.listener = listener
     }
 }

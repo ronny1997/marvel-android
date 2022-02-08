@@ -16,4 +16,12 @@ interface CharacterApi {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String
     ): Call<CharactersListDto>
+
+    @GET("characters/{id}")
+    fun getCharacterById(
+        @Path("id") id: Int,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): Call<CharactersListDto>
 }

@@ -9,7 +9,20 @@ class CharacterRemoteService @Inject constructor(retrofit: Retrofit) : Character
 
     private val marvelApi by lazy { retrofit.create(CharacterApi::class.java) }
 
-    override fun getCharactersList( offset: String,limit: String, ts: String, apikey: String, hash: String ): Call<CharactersListDto> =
+    override fun getCharactersList(
+        offset: String,
+        limit: String,
+        ts: String,
+        apikey: String,
+        hash: String
+    ): Call<CharactersListDto> =
         marvelApi.getCharactersList(offset, limit, ts, apikey, hash)
+
+    override fun getCharacterById(
+        id: Int,
+        ts: String,
+        apikey: String,
+        hash: String
+    ): Call<CharactersListDto> = marvelApi.getCharacterById(id, ts, apikey, hash)
 
 }

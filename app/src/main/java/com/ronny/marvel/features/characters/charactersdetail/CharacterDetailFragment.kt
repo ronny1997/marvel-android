@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.transition.MaterialContainerTransform
 import com.ronny.marvel.R
 import com.ronny.marvel.core.extensions.themeColor
@@ -15,6 +16,7 @@ import com.ronny.marvel.core.platform.BaseViewModel
 import com.ronny.marvel.databinding.FragmentDetailCharactersBinding
 import com.ronny.marvel.features.characters.model.CharacterItemView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class CharacterDetailFragment : BaseFragment() {
@@ -47,8 +49,21 @@ class CharacterDetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val characterItemView = arguments?.get("characterItemView") as CharacterItemView
         ViewCompat.setTransitionName(binding.root,"character_card_${characterItemView.id}")
-        characterItemView.let {
-            binding.characterItemView = it
+        characterDetailViewModel.getCharactersList(characterItemView.id?:-1)
+        lifecycleScope.launchWhenStarted {
+            characterDetailViewModel.characterUiState.collect { characterItemUiState ->
+                if (characterItemUiState.isLoading) {
+                        binding.prbCharacterItem.visibility = View.VISIBLE
+                }
+                if (characterItemUiState.error.isNotEmpty()) {
+                    binding.prbCharacterItem.visibility = View.GONE
+                    alertDialogError(characterItemUiState.error)
+                }
+                characterItemUiState.charactersListView?.let {
+                    binding.prbCharacterItem.visibility = View.GONE
+                    binding.characterItemView = it
+                }
+            }
         }
     }
     override fun getViewModel(): BaseViewModel = characterDetailViewModel

@@ -10,9 +10,7 @@ import com.ronny.marvel.core.exception.Failure
 import com.ronny.marvel.core.extensions.encryptMD5
 import com.ronny.marvel.core.platform.NetworkHandler
 import com.ronny.marvel.core.platform.request
-import com.ronny.marvel.features.characters.model.CharactersListDto
-import com.ronny.marvel.features.characters.model.CharactersListView
-import com.ronny.marvel.features.characters.model.toCharactersListView
+import com.ronny.marvel.features.characters.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.*
@@ -22,6 +20,11 @@ interface CharacterRepository {
     fun getCharacter(
         offset: Int
     ): Flow<Resource<Failure, CharactersListView>>
+
+    fun getCharacterByID(
+        id: Int
+    ): Flow<Resource<Failure, CharacterItemView?>>
+
     class CharacterRepositoryImpl @Inject constructor(
         private val remoteServiceRemote: CharacterRemoteService,
         private val networkHandler: NetworkHandler
@@ -44,6 +47,30 @@ interface CharacterRepository {
                             ),
                             {
                                 it.toCharactersListView()
+                            },
+                            CharactersListDto()
+                        )
+                    )
+                }
+                false -> emit(Resource.Error(Failure.NetworkConnection(errorMessage = R.string.internet_Error.toString())))
+            }
+        }
+
+        override fun getCharacterByID(id: Int): Flow<Resource<Failure, CharacterItemView?>> = flow {
+            when (networkHandler.isNetworkAvailable()) {
+                true -> {
+                    val ts = Date().time.toString()
+                    val hash = (ts + PRIVATE_API_KEY + PUBLIC_KEY).encryptMD5()
+                    emit(
+                        request(
+                            remoteServiceRemote.getCharacterById(
+                                id,
+                                ts,
+                                PUBLIC_KEY,
+                                hash
+                            ),
+                            {
+                                it.data?.characterItem?.get(0)?.toCharacterItemView()?: CharacterItemView()
                             },
                             CharactersListDto()
                         )

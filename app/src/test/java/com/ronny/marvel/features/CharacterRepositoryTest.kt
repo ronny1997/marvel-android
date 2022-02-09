@@ -1,8 +1,8 @@
 package com.ronny.marvel.features
 
-import com.ronny.marvel.core.common.Resource
-import com.ronny.marvel.core.exception.Failure
-import com.ronny.marvel.features.characters.CharacterRepository
+import com.ronny.marvel.common.util.Resource
+import com.ronny.marvel.data.exception.Failure
+import com.ronny.marvel.data.CharacterRepository
 import com.ronny.marvel.features.characters.model.CharactersListDto
 import com.ronny.marvel.features.characters.model.CharactersListView
 import com.ronny.marvel.features.characters.model.toCharactersListView

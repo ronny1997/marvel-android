@@ -7,7 +7,7 @@
 
         <variable
             name="characterItemView"
-            type="com.ronny.marvel.features.characters.model.CharacterItemView" />
+            type="com.ronny.marvel.presentation.model.CharacterItemView" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
                     android:contentDescription="@string/character_marvel"
                     android:scaleType="centerInside"
                     android:transitionName="@{@string/character_detail_transition_name}"
-                    app:coil_url='@{characterItemView.thumbnail}'
+                    app:coilUrl='@{characterItemView.thumbnail}'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

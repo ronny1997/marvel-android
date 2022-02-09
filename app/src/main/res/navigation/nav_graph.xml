@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/charactersListFragment"
-        android:name="com.ronny.marvel.features.characters.characterslist.CharactersListFragment"
+        android:name="com.ronny.marvel.presentation.characterslist.CharactersListFragment"
         android:label="CharactersList"
         tools:layout="@layout/fragment_characters_list">
         <action
@@ -17,12 +17,12 @@
 
     <fragment
         android:id="@+id/characterDetailFragment"
-        android:name="com.ronny.marvel.features.characters.charactersdetail.CharacterDetailFragment"
+        android:name="com.ronny.marvel.presentation.charactersdetail.CharacterDetailFragment"
         android:label="CharactersList"
-        tools:layout="@layout/fragment_detail_characterst">
+        tools:layout="@layout/fragment_detail_characters">
         <argument
             android:name="characterItemView"
-            app:argType="com.ronny.marvel.features.characters.model.CharacterItemView" />
+            app:argType="com.ronny.marvel.presentation.model.CharacterItemView" />
     </fragment>
 
 </navigation>

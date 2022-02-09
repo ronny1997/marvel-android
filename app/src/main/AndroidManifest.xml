@@ -18,7 +18,7 @@
             android:required="false" />
 
         <activity
-            android:name="com.ronny.marvel.core.navigation.MainActivity"
+            android:name="com.ronny.marvel.presentation.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">

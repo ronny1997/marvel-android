@@ -7,11 +7,11 @@
 
         <variable
             name="character"
-            type="com.ronny.marvel.features.characters.model.CharactersListView" />
+            type="com.ronny.marvel.presentation.model.CharactersListView" />
 
         <variable
             name="viewModel"
-            type="com.ronny.marvel.features.characters.characterslist.CharactersListViewModel" />
+            type="com.ronny.marvel.presentation.characterslist.CharactersListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -2,7 +2,7 @@ package com.ronny.marvel.core.platform
 
 import android.content.Context
 import android.net.NetworkCapabilities
-import com.ronny.marvel.core.extensions.connectivityManager
+import com.ronny.marvel.common.extensions.connectivityManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

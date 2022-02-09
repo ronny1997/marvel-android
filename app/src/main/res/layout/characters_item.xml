@@ -6,10 +6,10 @@
     <data>
         <variable
             name="characterItemView"
-            type="com.ronny.marvel.features.characters.model.CharacterItemView" />
+            type="com.ronny.marvel.presentation.model.CharacterItemView" />
         <variable
             name="listener"
-            type="com.ronny.marvel.features.characters.characterslist.CharacterAdapter.CharacterAdapterListener" />
+            type="com.ronny.marvel.presentation.characterslist.CharacterAdapter.CharacterAdapterListener" />
     </data>
 
     <FrameLayout
@@ -38,7 +38,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:contentDescription="@string/character_marvel"
-                    app:coil_url='@{characterItemView.thumbnail}'
+                    app:coilUrl='@{characterItemView.thumbnail}'
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

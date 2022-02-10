@@ -1,10 +1,12 @@
 package com.ronny.marvel.presentation.model
 
+import android.os.Parcelable
 import androidx.annotation.Keep
-import java.io.Serializable
+import kotlinx.android.parcel.Parcelize
 
 @Keep
-data class CharacterItemView(
+@Parcelize
+data class CharacterView(
     val id: Int? = -1,
     val name: String? = "",
     val description: String? = "",
@@ -13,4 +15,4 @@ data class CharacterItemView(
     val resourceURI: String? = "",
     val comics: ComicsView? = ComicsView(),
     val stories: StoriesView? = StoriesView(),
-): Serializable
+) : Parcelable

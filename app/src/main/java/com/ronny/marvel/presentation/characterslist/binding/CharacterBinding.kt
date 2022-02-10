@@ -5,14 +5,13 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ronny.marvel.R
-import com.ronny.marvel.presentation.charactersdetail.ItemsAdapter
 import com.ronny.marvel.presentation.characterslist.CharacterAdapter
-import com.ronny.marvel.presentation.model.CharactersListView
+import com.ronny.marvel.presentation.model.MarvelDataView
 import com.ronny.marvel.presentation.model.ThumbnailView
 
 object CharacterBinding {
 
-    @BindingAdapter("app:coilUrl")
+    @BindingAdapter("app:remote_url")
     @JvmStatic
     fun coilUrl(view: ImageView, thumbnail: ThumbnailView?) {
         view.load("${thumbnail?.path?.replace("http", "https")}.${thumbnail?.extension}") {
@@ -23,9 +22,33 @@ object CharacterBinding {
 
     @BindingAdapter("app:characters")
     @JvmStatic
-    fun characters(view: RecyclerView, listCharacterItem: CharactersListView?) {
-        listCharacterItem?.let {
+    fun characters(view: RecyclerView, marvelDataView: MarvelDataView?) {
+        marvelDataView?.let {
             (view.adapter as CharacterAdapter).updateData(it)
         }
     }
 }
+
+
+
+/*@BindingAdapter("app:coil_load")
+        @JvmStatic
+        fun coilBackground(view: View, thumbnail: ThumbnailView?) {
+            var s = ImageLoader(view.context)
+            var r = ImageRequest.Builder(view.context)
+                .data("${thumbnail?.path?.replace("http", "https")}.${thumbnail?.extension}")
+                .allowHardware(false) // Disable hardware bitmaps.
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .target { drawable ->
+                    when (view) {
+                        is ImageView -> {
+                            view.setImageDrawable(drawable)
+                        }
+                        is MaterialCardView -> {
+                            view.background = drawable
+                        }
+                    }
+                }.build()
+            s.enqueue(r)
+
+        }*/

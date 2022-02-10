@@ -1,8 +1,12 @@
 package com.ronny.marvel.di
 
+import android.content.Context
 import com.ronny.marvel.BuildConfig
 import com.ronny.marvel.common.constans.Constants
-import com.ronny.marvel.data.CharacterRepositoryImpl
+import com.ronny.marvel.data.repository.CharacterRepositoryImpl
+import com.ronny.marvel.data.local.AppRoomDatabase
+import com.ronny.marvel.data.local.MarvelLocalDataSource
+import com.ronny.marvel.data.local.marvel.dao.MarvelDataDao
 import com.ronny.marvel.domain.repository.CharacterRepository
 import dagger.Module
 import dagger.Provides
@@ -17,6 +21,17 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+
+    @Provides
+    @Singleton
+    fun appRoomDatabaseProvider(context: Context) = AppRoomDatabase.buildDatabase(context)
+
+    @Provides
+    fun marvelDataDaoProvider(dataBase: AppRoomDatabase) = dataBase.marvelDataDao()
+
+    @Provides
+    fun marvelLocalDataSourceProvider(marvelDataDao: MarvelDataDao) = MarvelLocalDataSource(marvelDataDao)
 
 
     @Provides

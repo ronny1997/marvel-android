@@ -6,14 +6,13 @@
     <data>
 
         <variable
-            name="characterItemView"
-            type="com.ronny.marvel.presentation.model.CharacterItemView" />
+            name="characterView"
+            type="com.ronny.marvel.presentation.model.CharacterView" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_gradien">
+        android:layout_height="match_parent">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/character_card_view"
@@ -39,7 +38,7 @@
                     android:contentDescription="@string/character_marvel"
                     android:scaleType="centerInside"
                     android:transitionName="@{@string/character_detail_transition_name}"
-                    app:coilUrl='@{characterItemView.thumbnail}'
+                    app:remote_url='@{characterView.thumbnail}'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +53,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:padding="5dp"
-                    android:text='@{characterItemView.name}'
+                    android:text='@{characterView.name}'
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="@id/imv_characters"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_1"
-                    android:text='@{characterItemView.description}'
+                    android:text='@{characterView.description}'
                     app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
                 <TextView
@@ -94,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_1"
                     android:orientation="horizontal"
-                    app:items_view="@{characterItemView.comics.items}"
+                    app:items_view="@{characterView.comics.items}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/tv_comic"
                     tools:listitem="@layout/comics_items" />
@@ -115,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_1"
                     android:orientation="horizontal"
-                    app:items_view="@{characterItemView.stories.items}"
+                    app:items_view="@{characterView.stories.items}"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/tv_stories"
                     tools:listitem="@layout/comics_items" />

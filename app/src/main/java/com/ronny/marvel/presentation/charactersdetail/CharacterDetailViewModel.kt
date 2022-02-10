@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.ronny.marvel.common.ui.BaseViewModel
 import com.ronny.marvel.common.util.Resource
 import com.ronny.marvel.domain.use_case.GetCharacterByIdUseCase
-import com.ronny.marvel.presentation.model.CharacterItemView
+import com.ronny.marvel.presentation.model.CharacterView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -14,8 +14,8 @@ import javax.inject.Inject
 class CharacterDetailViewModel @Inject constructor(
     private val getCharacterByIdUseCase: GetCharacterByIdUseCase
 ) : BaseViewModel() {
-    private val _characterUiState = MutableStateFlow(CharacterItemViewUiState())
-    val characterUiState: StateFlow<CharacterItemViewUiState> get() = _characterUiState
+    private val _characterUiState = MutableStateFlow(CharacterViewUiState())
+    val characterUiState: StateFlow<CharacterViewUiState> get() = _characterUiState
 
 
      fun getCharactersList(id: Int) {
@@ -23,12 +23,12 @@ class CharacterDetailViewModel @Inject constructor(
             getCharacterByIdUseCase(GetCharacterByIdUseCase.Params(id)).collect {
                 when (it) {
                     is Resource.Loading -> _characterUiState.value =
-                        CharacterItemViewUiState(isLoading = true)
+                        CharacterViewUiState(isLoading = true)
                     is Resource.Error -> _characterUiState.value =
-                        CharacterItemViewUiState(error = handleFailure(it.error))
+                        CharacterViewUiState(error = handleFailure(it.error))
                     is Resource.Success -> {
                         _characterUiState.value =
-                            CharacterItemViewUiState(charactersListView = it.data)
+                            CharacterViewUiState(charactersListView = it.data)
                     }
                 }
             }
@@ -36,8 +36,8 @@ class CharacterDetailViewModel @Inject constructor(
     }
 }
 
-data class CharacterItemViewUiState(
-    val charactersListView: CharacterItemView? = null,
+data class CharacterViewUiState(
+    val charactersListView: CharacterView? = null,
     val error: String = "",
     val isLoading: Boolean = false
 )

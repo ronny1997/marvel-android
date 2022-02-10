@@ -21,8 +21,8 @@
         android:label="CharactersList"
         tools:layout="@layout/fragment_detail_characters">
         <argument
-            android:name="characterItemView"
-            app:argType="com.ronny.marvel.presentation.model.CharacterItemView" />
+            android:name="characterView"
+            app:argType="com.ronny.marvel.presentation.model.CharacterView" />
     </fragment>
 
 </navigation>

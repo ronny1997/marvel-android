@@ -1,11 +1,13 @@
-package com.ronny.marvel.data.remote.dto
+package com.ronny.marvel.data.local.marvel.entity
 
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import com.ronny.marvel.domain.model.CharactersList
-import com.ronny.marvel.presentation.model.CharactersListView
+import com.ronny.marvel.presentation.model.MarvelDataView
 
-data class CharactersListDto(
+@Entity(tableName = "MarvelDataEntity")
+data class MarvelDataEntity(
     @SerializedName("code")
     val code: Int? = -1,
     @SerializedName("status")
@@ -19,10 +21,10 @@ data class CharactersListDto(
     @SerializedName("etag")
     val etag: String? = "",
     @SerializedName("data")
-    val data: DataDto? = DataDto()
+    val data: DataEntity? = DataEntity()
 )
 
-fun CharactersListDto.toCharactersListView(): CharactersListView = CharactersListView(
+fun MarvelDataEntity.toCharactersListView(): MarvelDataView = MarvelDataView(
     code,
     status,
     copyright,
@@ -31,7 +33,7 @@ fun CharactersListDto.toCharactersListView(): CharactersListView = CharactersLis
     etag,
     data?.toDataView()
 )
-fun CharactersListDto.toCharactersList(): CharactersList = CharactersList(
+fun MarvelDataEntity.toCharactersList(): CharactersList = CharactersList(
     code,
     status,
     copyright,

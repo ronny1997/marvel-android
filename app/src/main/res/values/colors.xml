@@ -10,6 +10,8 @@
     <color name="grey">#ACA39A</color>
     <color name="red">#5e0507</color>
     <color name="blue">#01309c</color>
+    <color name="blue_spider">#0059fe</color>
+
 
     <color name="black_transparent_50">#80000000</color>
     <color name="red_transparent_50">#80f0141e</color>

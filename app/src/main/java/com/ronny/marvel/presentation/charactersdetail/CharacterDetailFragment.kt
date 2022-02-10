@@ -14,7 +14,7 @@ import com.ronny.marvel.common.extensions.themeColor
 import com.ronny.marvel.common.ui.BaseFragment
 import com.ronny.marvel.common.ui.BaseViewModel
 import com.ronny.marvel.databinding.FragmentDetailCharactersBinding
-import com.ronny.marvel.presentation.model.CharacterItemView
+import com.ronny.marvel.presentation.model.CharacterView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -47,9 +47,9 @@ class CharacterDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val characterItemView = arguments?.get("characterItemView") as CharacterItemView
-        ViewCompat.setTransitionName(binding.root,"character_card_${characterItemView.id}")
-        characterDetailViewModel.getCharactersList(characterItemView.id?:-1)
+        val characterView = arguments?.get("characterView") as CharacterView
+        ViewCompat.setTransitionName(binding.root,"character_card_${characterView.id}")
+        characterDetailViewModel.getCharactersList(characterView.id?:-1)
         lifecycleScope.launchWhenStarted {
             characterDetailViewModel.characterUiState.collect { characterItemUiState ->
                 if (characterItemUiState.isLoading) {
@@ -61,7 +61,7 @@ class CharacterDetailFragment : BaseFragment() {
                 }
                 characterItemUiState.charactersListView?.let {
                     binding.prbCharacterItem.visibility = View.GONE
-                    binding.characterItemView = it
+                    binding.characterView = it
                 }
             }
         }

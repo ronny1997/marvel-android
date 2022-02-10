@@ -1,16 +1,12 @@
 package com.ronny.marvel.domain.repository
 
-import com.ronny.marvel.common.util.Resource
-import com.ronny.marvel.data.exception.Failure
 import com.ronny.marvel.domain.model.CharacterItem
-import com.ronny.marvel.presentation.model.CharacterItemView
-import com.ronny.marvel.presentation.model.CharactersListView
-import kotlinx.coroutines.flow.Flow
+import com.ronny.marvel.presentation.model.MarvelDataView
 
 interface CharacterRepository {
     suspend  fun getCharacter(
         offset: Int
-    ): CharactersListView?
+    ): MarvelDataView?
 
     suspend fun getCharacterByID(
         id: Int

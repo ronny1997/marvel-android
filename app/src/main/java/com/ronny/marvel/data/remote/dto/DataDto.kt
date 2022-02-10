@@ -15,8 +15,8 @@ data class DataDto(
     @SerializedName("count")
     val count: Int?= -1,
     @SerializedName("results")
-    val characterItem: List<CharacterItemDto>? = listOf()
+    val character: List<CharacterDto>? = listOf()
 )
 
-fun DataDto.toDataView(): DataView = DataView(offset, limit, total, count, characterItem?.map { it.toCharacterItemView() })
-fun DataDto.toData(): Data = Data(offset, limit, total, count, characterItem?.map { it.toCharacterItem() })
+fun DataDto.toDataView(): DataView = DataView(offset, limit, total, count, character?.map { it.toCharacterView() })
+fun DataDto.toData(): Data = Data(offset, limit, total, count, character?.map { it.toCharacterItem() })

@@ -3,9 +3,9 @@ package com.ronny.marvel.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import com.ronny.marvel.domain.model.CharacterItem
-import com.ronny.marvel.presentation.model.CharacterItemView
+import com.ronny.marvel.presentation.model.CharacterView
 
-data class CharacterItemDto(
+data class CharacterDto(
     @SerializedName("id")
     val id: Int? = -1,
     @SerializedName("name")
@@ -24,7 +24,7 @@ data class CharacterItemDto(
     val stories: StoriesDto? = StoriesDto(),
 )
 
-fun CharacterItemDto.toCharacterItemView(): CharacterItemView = CharacterItemView(
+fun CharacterDto.toCharacterView(): CharacterView = CharacterView(
     id,
     name,
     description,
@@ -34,7 +34,7 @@ fun CharacterItemDto.toCharacterItemView(): CharacterItemView = CharacterItemVie
     comics?.toComicsView(),
     stories?.toStoriesView(),
 )
-fun CharacterItemDto.toCharacterItem(): CharacterItem = CharacterItem(
+fun CharacterDto.toCharacterItem(): CharacterItem = CharacterItem(
     id,
     name,
     description,

@@ -1,12 +1,12 @@
 package com.ronny.marvel.presentation.characterslist
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ronny.marvel.features.CharacterRepositoryTest
 import com.ronny.marvel.domain.use_case.GetCharactersUseCase
-import com.ronny.marvel.features.characters.model.CharactersListView
+import com.ronny.marvel.features.CharacterRepositoryTest
+import com.ronny.marvel.presentation.model.MarvelDataView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,15 +37,15 @@ class CharactersListViewModelTest {
 
     @Test
     fun `State is success`() {
-        charactersListUiState = CharactersListUiState(charactersListView = CharactersListView())
-        assertEquals(CharactersListView(), charactersListUiState.charactersListView)
+        charactersListUiState = CharactersListUiState(charactersListView = MarvelDataView())
+        assertEquals(MarvelDataView(), charactersListUiState.charactersListView)
     }
 
     @Test
     fun `Test return characterListView`() {
         runBlocking {
             getCharactersUseCase.execute(GetCharactersUseCase.Params(0)).collectLatest {
-                assertEquals(CharactersListView(), it.data)
+                assertEquals(MarvelDataView(), it.data)
             }
         }
     }

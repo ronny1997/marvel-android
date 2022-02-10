@@ -5,6 +5,7 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.android.extensions'
 }
 
 android {
@@ -94,6 +95,9 @@ dependencies {
     //coil
     implementation 'io.coil-kt:coil:1.4.0'
 
+    //palette
+    implementation 'androidx.palette:palette-ktx:1.0.0'
+
     //fragment
     def fragment_version = "1.4.1"
 
@@ -112,6 +116,12 @@ dependencies {
 
     //SwipyRefreshLayout
     implementation "com.github.omadahealth:swipy:1.2.3@aar"
+
+    //room
+    def room_version = "2.4.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
 
 }

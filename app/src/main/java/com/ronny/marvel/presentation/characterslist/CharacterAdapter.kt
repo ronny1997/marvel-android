@@ -5,20 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ronny.marvel.common.extensions.getLayoutInflater
 import com.ronny.marvel.databinding.CharactersItemBinding
-import com.ronny.marvel.presentation.model.CharacterItemView
-import com.ronny.marvel.presentation.model.CharactersListView
+import com.ronny.marvel.presentation.model.CharacterView
+import com.ronny.marvel.presentation.model.MarvelDataView
 
 class CharacterAdapter(private val listener: CharacterAdapterListener) :
     RecyclerView.Adapter<CharacterViewHolder>() {
     private var etag = ""
-    private val listCharacterItem: ArrayList<CharacterItemView> = arrayListOf()
+    private val listCharacterItem: ArrayList<CharacterView> = arrayListOf()
 
     interface CharacterAdapterListener {
-        fun clickListener(view: View, characterItemView: CharacterItemView?)
+        fun clickListener(view: View, characterView: CharacterView?)
     }
 
 
-    fun updateData(items: CharactersListView) {
+    fun updateData(items: MarvelDataView) {
         if (items.etag != etag) {
             items.etag?.let {
                 etag = it
@@ -53,10 +53,10 @@ class CharacterViewHolder(
     CharactersItemBinding
 ) : RecyclerView.ViewHolder(charactersItemBinding.root) {
     fun bind(
-        characterItem: CharacterItemView,
+        characterItem: CharacterView,
         listener: CharacterAdapter.CharacterAdapterListener
     ) {
-        charactersItemBinding.characterItemView = characterItem
+        charactersItemBinding.characterView = characterItem
         charactersItemBinding.listener = listener
     }
 }

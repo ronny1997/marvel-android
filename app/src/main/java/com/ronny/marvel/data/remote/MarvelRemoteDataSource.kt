@@ -1,11 +1,10 @@
 package com.ronny.marvel.data.remote
 
-import com.ronny.marvel.data.remote.dto.CharactersListDto
-import retrofit2.Call
+import com.ronny.marvel.data.remote.dto.MarvelDataDto
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class CharacterRemoteService @Inject constructor(retrofit: Retrofit) : CharacterApi {
+class MarvelRemoteDataSource @Inject constructor(retrofit: Retrofit) : CharacterApi {
 
     private val marvelApi by lazy { retrofit.create(CharacterApi::class.java) }
 
@@ -15,7 +14,7 @@ class CharacterRemoteService @Inject constructor(retrofit: Retrofit) : Character
         ts: String,
         apikey: String,
         hash: String
-    ): CharactersListDto? =
+    ): MarvelDataDto? =
         marvelApi.getCharactersList(offset, limit, ts, apikey, hash)
 
     override suspend fun getCharacterById(
@@ -23,6 +22,6 @@ class CharacterRemoteService @Inject constructor(retrofit: Retrofit) : Character
         ts: String,
         apikey: String,
         hash: String
-    ): CharactersListDto? = marvelApi.getCharacterById(id, ts, apikey, hash)
+    ): MarvelDataDto? = marvelApi.getCharacterById(id, ts, apikey, hash)
 
 }

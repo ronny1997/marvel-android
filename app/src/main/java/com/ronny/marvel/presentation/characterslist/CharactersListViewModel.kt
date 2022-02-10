@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.ronny.marvel.common.ui.BaseViewModel
 import com.ronny.marvel.common.util.Resource
 import com.ronny.marvel.domain.use_case.GetCharactersUseCase
-import com.ronny.marvel.presentation.model.CharacterItemView
-import com.ronny.marvel.presentation.model.CharactersListView
+import com.ronny.marvel.presentation.model.CharacterView
+import com.ronny.marvel.presentation.model.MarvelDataView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -48,14 +48,14 @@ class CharactersListViewModel @Inject constructor(
         }
     }
 
-    fun goToCharacterDetail(character: CharacterItemView) {
+    fun goToCharacterDetail(character: CharacterView) {
         navigate(CharactersListFragmentDirections.goToCharacterDetailFragment(character))
     }
 
 }
 
 data class CharactersListUiState(
-    val charactersListView: CharactersListView? = null,
+    val charactersListView: MarvelDataView? = null,
     val error: String = "",
     val isLoading: Boolean = false
 )

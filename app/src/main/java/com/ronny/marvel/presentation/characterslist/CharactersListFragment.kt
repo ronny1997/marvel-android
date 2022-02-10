@@ -16,7 +16,7 @@ import com.ronny.marvel.R
 import com.ronny.marvel.common.ui.BaseFragment
 import com.ronny.marvel.common.ui.BaseViewModel
 import com.ronny.marvel.databinding.FragmentCharactersListBinding
-import com.ronny.marvel.presentation.model.CharacterItemView
+import com.ronny.marvel.presentation.model.CharacterView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -69,7 +69,7 @@ class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapter
                 charactersUiState.charactersListView?.let {
                     binding.prbCharacter.visibility = View.GONE
                     binding.swpLayout.isRefreshing = false
-                    binding.character = it
+                    binding.marvelDataView = it
                 }
             }
         }
@@ -88,7 +88,7 @@ class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapter
             }
         }
     }
-    override fun clickListener(view: View, characterItemView: CharacterItemView?) {
+    override fun clickListener(view: View, characterView: CharacterView?) {
         if (!binding.swpLayout.isRefreshing) {
             exitTransition = MaterialElevationScale(false).apply {
                 duration =
@@ -100,7 +100,7 @@ class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapter
             }
             fragmentNavigatorExtras =
                 FragmentNavigatorExtras(view to view.transitionName)
-            characterItemView?.let {
+            characterView?.let {
                 charactersListViewModel.goToCharacterDetail(it)
             }
         }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ronny.marvel.R
 import com.ronny.marvel.presentation.characterslist.CharacterAdapter
+import com.ronny.marvel.presentation.model.CharacterView
 import com.ronny.marvel.presentation.model.MarvelDataView
 import com.ronny.marvel.presentation.model.ThumbnailView
 
@@ -22,8 +23,8 @@ object CharacterBinding {
 
     @BindingAdapter("app:characters")
     @JvmStatic
-    fun characters(view: RecyclerView, marvelDataView: MarvelDataView?) {
-        marvelDataView?.let {
+    fun characters(view: RecyclerView, items: List<CharacterView>?) {
+        items?.let {
             (view.adapter as CharacterAdapter).updateData(it)
         }
     }

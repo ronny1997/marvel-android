@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="java.util.List"/>
         <variable
-            name="marvelDataView"
-            type="com.ronny.marvel.presentation.model.MarvelDataView" />
+            name="listCharacterView"
+            type="List&lt;com.ronny.marvel.presentation.model.CharacterView>"/>
 
         <variable
             name="viewModel"
@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:transitionGroup="true"
-                app:characters="@{marvelDataView}"
+                app:characters="@{listCharacterView}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:listitem="@layout/characters_item" />

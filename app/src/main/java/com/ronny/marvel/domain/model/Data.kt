@@ -10,5 +10,5 @@ data class Data(
     val limit: Int? = -1,
     val total: Int?= -1,
     val count: Int?= -1,
-    val characterItem: List<CharacterItem>? = listOf()
+    val characterItem: List<Character>? = listOf()
 ): Serializable

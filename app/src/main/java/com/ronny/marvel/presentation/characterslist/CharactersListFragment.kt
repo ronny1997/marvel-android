@@ -69,7 +69,7 @@ class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapter
                 charactersUiState.charactersListView?.let {
                     binding.prbCharacter.visibility = View.GONE
                     binding.swpLayout.isRefreshing = false
-                    binding.marvelDataView = it
+                    binding.listCharacterView = it
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.ronny.marvel.data.local.marvel.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.ronny.marvel.data.local.marvel.entity.CharacterEntity
 import com.ronny.marvel.data.local.marvel.entity.MarvelDataEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -10,9 +11,12 @@ import kotlinx.coroutines.flow.Flow
 abstract class MarvelDataDao {
 
     @Insert
-    abstract fun insertAllMarvelData(marvelDataEntityList: List<MarvelDataEntity>)
+    abstract fun insertListCharacter(characterEntityList: List<CharacterEntity>)
 
-    @Query("SELECT * FROM MarvelDataEntity")
-    abstract fun getMarvelDataEntity(): Flow<MarvelDataEntity>
+    @Query("SELECT * FROM CharacterEntity")
+    abstract fun getCharacterEntityFlow():  Flow<List<CharacterEntity>>
+
+    @Query("SELECT * FROM CharacterEntity")
+    abstract fun getCharacterEntity():  List<CharacterEntity>?
 
 }

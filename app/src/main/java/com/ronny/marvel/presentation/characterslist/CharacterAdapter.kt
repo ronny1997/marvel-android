@@ -10,7 +10,6 @@ import com.ronny.marvel.presentation.model.MarvelDataView
 
 class CharacterAdapter(private val listener: CharacterAdapterListener) :
     RecyclerView.Adapter<CharacterViewHolder>() {
-    private var etag = ""
     private val listCharacterItem: ArrayList<CharacterView> = arrayListOf()
 
     interface CharacterAdapterListener {
@@ -18,18 +17,9 @@ class CharacterAdapter(private val listener: CharacterAdapterListener) :
     }
 
 
-    fun updateData(items: MarvelDataView) {
-        if (items.etag != etag) {
-            items.etag?.let {
-                etag = it
-            }
-            items.data?.characterItem?.let {
-                listCharacterItem.addAll(ArrayList(it))
-            }
-
-            this.notifyItemInserted(listCharacterItem.size)
-        }
-
+    fun updateData(items: List<CharacterView>) {
+        listCharacterItem.addAll(items)
+        this.notifyItemInserted(listCharacterItem.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder =

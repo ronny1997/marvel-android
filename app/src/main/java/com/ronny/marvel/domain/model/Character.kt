@@ -6,7 +6,7 @@ import com.ronny.marvel.presentation.model.CharacterView
 import java.io.Serializable
 
 @Keep
-data class CharacterItem(
+data class Character(
     val id: Int? = -1,
     val name: String? = "",
     val description: String? = "",
@@ -17,5 +17,6 @@ data class CharacterItem(
     val stories: Stories? = Stories(),
 ): Serializable
 
-fun CharacterItem.toCharacterView(): CharacterView = CharacterView(id, name, description, modified, thumbnail?.toThumbnailView(), resourceURI, comics?.toComicsView(), stories?.toStoriesView())
-fun CharacterItem.toCharacterItem(): CharacterItem = CharacterItem(id, name, description, modified, thumbnail?.toThumbnail(), resourceURI, comics?.toComics(), stories?.toStories())
+fun Character.toCharacterView(): CharacterView = CharacterView(id, name, description, modified, thumbnail?.toThumbnailView(), resourceURI, comics?.toComicsView(), stories?.toStoriesView())
+fun Character.toCharacter(): Character =
+    Character(id, name, description, modified, thumbnail?.toThumbnail(), resourceURI, comics?.toComics(), stories?.toStories())

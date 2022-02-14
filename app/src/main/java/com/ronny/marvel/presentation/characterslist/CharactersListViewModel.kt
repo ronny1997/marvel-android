@@ -1,40 +1,42 @@
 package com.ronny.marvel.presentation.characterslist
 
 import androidx.lifecycle.viewModelScope
+import com.ronny.marvel.common.interactor.None
 import com.ronny.marvel.common.ui.BaseViewModel
 import com.ronny.marvel.common.util.Resource
+import com.ronny.marvel.domain.model.CharactersList
+import com.ronny.marvel.domain.use_case.GetCharacterRemoteUseCase
 import com.ronny.marvel.domain.use_case.GetCharactersUseCase
 import com.ronny.marvel.presentation.model.CharacterView
 import com.ronny.marvel.presentation.model.MarvelDataView
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersListViewModel @Inject constructor(
-    private val getCharactersUseCase: GetCharactersUseCase
+    private val getCharactersUseCase: GetCharactersUseCase,
+    private val getCharacterRemoteUseCase: GetCharacterRemoteUseCase
 ) : BaseViewModel() {
     private val _charactersUiState = MutableStateFlow(CharactersListUiState())
-    val charactersUiState: StateFlow<CharactersListUiState> get() =  _charactersUiState
+    val charactersUiState: StateFlow<CharactersListUiState> get() = _charactersUiState
 
     val lastVisibility = MutableStateFlow(0)
 
     init {
+        getCharactersList()
         viewModelScope.launch {
             lastVisibility.collect {
-                getCharactersList(it)
+                getCharacterRemote(it)
             }
         }
     }
 
-    private suspend fun getCharactersList(offset: Int = 0) {
-        getCharactersUseCase(GetCharactersUseCase.Params(offset)).onStart {
+    private fun getCharactersList() {
+        getCharactersUseCase(None()).onStart {
             _charactersUiState.value = CharactersListUiState(isLoading = true)
-        }.collect {
+        }.onEach {
             when (it) {
                 is Resource.Loading -> _charactersUiState.value =
                     CharactersListUiState(isLoading = true)
@@ -45,7 +47,13 @@ class CharactersListViewModel @Inject constructor(
                         CharactersListUiState(charactersListView = it.data)
                 }
             }
-        }
+        }.launchIn(viewModelScope)
+    }
+
+    private suspend fun getCharacterRemote(offset: Int = 0) {
+        getCharacterRemoteUseCase(GetCharacterRemoteUseCase.Params(offset)).onStart {
+            _charactersUiState.value = CharactersListUiState(isLoading = true)
+        }.collect { }
     }
 
     fun goToCharacterDetail(character: CharacterView) {
@@ -55,7 +63,7 @@ class CharactersListViewModel @Inject constructor(
 }
 
 data class CharactersListUiState(
-    val charactersListView: MarvelDataView? = null,
+    val charactersListView: List<CharacterView>? = null,
     val error: String = "",
     val isLoading: Boolean = false
 )

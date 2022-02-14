@@ -2,41 +2,54 @@ package com.ronny.marvel.data.remote.dto
 
 
 import com.google.gson.annotations.SerializedName
+import com.ronny.marvel.data.local.marvel.entity.MarvelDataEntity
 import com.ronny.marvel.domain.model.CharactersList
 import com.ronny.marvel.presentation.model.MarvelDataView
 
 data class MarvelDataDto(
+    @SerializedName("id")
+    val id: Int = -1,
     @SerializedName("code")
-    val code: Int? = -1,
+    val code: Int = -1,
     @SerializedName("status")
-    val status: String? = "",
+    val status: String = "",
     @SerializedName("copyright")
-    val copyright: String? = "",
+    val copyright: String = "",
     @SerializedName("attributionText")
-    val attributionText: String? = "",
+    val attributionText: String = "",
     @SerializedName("attributionHTML")
-    val attributionHTML: String? = "",
+    val attributionHTML: String = "",
     @SerializedName("etag")
-    val etag: String? = "",
+    val etag: String = "",
     @SerializedName("data")
-    val data: DataDto? = DataDto()
+    val data: DataDto = DataDto()
 )
 
-fun MarvelDataDto.toCharactersListView(): MarvelDataView = MarvelDataView(
+fun MarvelDataDto.toMarvelDataView(): MarvelDataView = MarvelDataView(
     code,
     status,
     copyright,
     attributionText,
     attributionHTML,
     etag,
-    data?.toDataView()
+    data.toDataView()
 )
-fun MarvelDataDto.toCharactersList(): CharactersList = CharactersList(
+fun MarvelDataDto.toMarvelData(): CharactersList = CharactersList(
     code,
     status,
     copyright,
     attributionText,
     attributionHTML,
     etag,
-    data?.toData()
+    data.toData()
+)
+fun MarvelDataDto.toMarvelDataEntity(): MarvelDataEntity = MarvelDataEntity(
+    id,
+    code,
+    status,
+    copyright,
+    attributionText,
+    attributionHTML,
+    etag,
+    data.toDataEntity()
 )

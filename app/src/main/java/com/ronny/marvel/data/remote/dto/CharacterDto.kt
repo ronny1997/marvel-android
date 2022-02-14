@@ -2,26 +2,27 @@ package com.ronny.marvel.data.remote.dto
 
 
 import com.google.gson.annotations.SerializedName
-import com.ronny.marvel.domain.model.CharacterItem
+import com.ronny.marvel.data.local.marvel.entity.CharacterEntity
+import com.ronny.marvel.domain.model.Character
 import com.ronny.marvel.presentation.model.CharacterView
 
 data class CharacterDto(
     @SerializedName("id")
-    val id: Int? = -1,
+    val id: Int = -1,
     @SerializedName("name")
-    val name: String? = "",
+    val name: String = "",
     @SerializedName("description")
-    val description: String? = "",
+    val description: String = "",
     @SerializedName("modified")
-    val modified: String? = "",
+    val modified: String = "",
     @SerializedName("thumbnail")
-    val thumbnail: ThumbnailDto? = ThumbnailDto(),
+    val thumbnail: ThumbnailDto = ThumbnailDto(),
     @SerializedName("resourceURI")
-    val resourceURI: String? = "",
+    val resourceURI: String = "",
     @SerializedName("comics")
-    val comics: ComicsDto? = ComicsDto(),
+    val comics: ComicsDto = ComicsDto(),
     @SerializedName("stories")
-    val stories: StoriesDto? = StoriesDto(),
+    val stories: StoriesDto = StoriesDto(),
 )
 
 fun CharacterDto.toCharacterView(): CharacterView = CharacterView(
@@ -29,18 +30,28 @@ fun CharacterDto.toCharacterView(): CharacterView = CharacterView(
     name,
     description,
     modified,
-    thumbnail?.toThumbnailView(),
+    thumbnail.toThumbnailView(),
     resourceURI,
-    comics?.toComicsView(),
-    stories?.toStoriesView(),
+    comics.toComicsView(),
+    stories.toStoriesView(),
 )
-fun CharacterDto.toCharacterItem(): CharacterItem = CharacterItem(
+fun CharacterDto.toCharacter(): Character = Character(
     id,
     name,
     description,
     modified,
-    thumbnail?.toThumbnail(),
+    thumbnail.toThumbnail(),
     resourceURI,
-    comics?.toComics(),
-    stories?.toStories(),
+    comics.toComics(),
+    stories.toStories(),
+)
+fun CharacterDto.toCharacterEntity(): CharacterEntity = CharacterEntity(
+    id,
+    name,
+    description,
+    modified,
+    thumbnail.toThumbnailEntity(),
+    resourceURI,
+    comics.toComicsEntity(),
+    stories.toStoriesEntity(),
 )

@@ -1,7 +1,7 @@
 package com.ronny.marvel.common.interactor
 
 import com.ronny.marvel.common.util.Resource
-import com.ronny.marvel.data.exception.Failure
+import com.ronny.marvel.common.util.Failure
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

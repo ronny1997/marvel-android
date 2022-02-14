@@ -2,7 +2,7 @@ package com.ronny.marvel.domain.use_case
 
 import com.ronny.marvel.common.interactor.FlowUseCase
 import com.ronny.marvel.common.util.Resource
-import com.ronny.marvel.data.exception.Failure
+import com.ronny.marvel.common.util.Failure
 import com.ronny.marvel.domain.model.toCharacterView
 import com.ronny.marvel.domain.repository.CharacterRepository
 import com.ronny.marvel.presentation.model.CharacterView
@@ -19,7 +19,7 @@ class GetCharacterByIdUseCase @Inject constructor(private val repository: Charac
                 repository.getCharacterByID(parameters.id)
             }.onSuccess { data ->
                 emit(Resource.Success(data?.toCharacterView()))
-            }.onFailure { exception ->
+                }.onFailure { exception ->
                 emit(
                     Resource.Error(
                         Failure.ServerError(

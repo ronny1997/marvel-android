@@ -13,5 +13,8 @@
     <string name="stories">Stories</string>
     <string name="toolbar_title">Toolbar title</string>
     <string name="oops">OOPS!</string>
+    <string name="retry">Reintentar</string>
+    <string name="empty_description_character">There is no information about this character</string>
+    <string name="close_character">Close character</string>
 
 </resources>

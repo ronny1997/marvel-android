@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 @Keep
-data class CharactersList(
+data class MarvelData(
     val code: Int?= -1,
     val status: String?="",
     val copyright: String?="",

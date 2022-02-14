@@ -9,6 +9,7 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.ronny.marvel.R
+import com.ronny.marvel.databinding.CustomErrorDialogBinding
 
 abstract class BaseFragment : Fragment() {
 
@@ -39,12 +40,16 @@ abstract class BaseFragment : Fragment() {
         return fragmentNavigatorExtras
     }
 
-    fun alertDialogError(message: String) {
+    fun alertDialogError(message: String, retry: () -> Unit) {
         Dialog(requireContext()).apply {
             setContentView(R.layout.custom_error_dialog)
             val tvMsg = this.findViewById<TextView>(R.id.msg_error)
+            val btmRetry = this.findViewById<TextView>(R.id.btm_retry)
             tvMsg.text = message
-            setCancelable(false)
+            btmRetry.setOnClickListener {
+                dismiss()
+                retry()
+            }
             show()
         }
 

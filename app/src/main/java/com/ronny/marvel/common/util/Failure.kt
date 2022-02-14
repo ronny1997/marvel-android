@@ -1,4 +1,4 @@
-package com.ronny.marvel.data.exception
+package com.ronny.marvel.common.util
 
 sealed class Failure {
     data class NetworkConnection(val errorCode: Int? = null, val errorMessage: String) : Failure()

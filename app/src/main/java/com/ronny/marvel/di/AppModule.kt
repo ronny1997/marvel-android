@@ -3,10 +3,13 @@ package com.ronny.marvel.di
 import android.content.Context
 import com.ronny.marvel.BuildConfig
 import com.ronny.marvel.common.constans.Constants
-import com.ronny.marvel.data.repository.CharacterRepositoryImpl
 import com.ronny.marvel.data.local.AppRoomDatabase
-import com.ronny.marvel.data.local.MarvelLocalDataSource
+import com.ronny.marvel.data.local.marvel.MarvelLocalDataSource
+import com.ronny.marvel.data.local.marvel.MarvelLocalDataSourceImpl
 import com.ronny.marvel.data.local.marvel.dao.MarvelDataDao
+import com.ronny.marvel.data.remote.MarvelRemoteDataSource
+import com.ronny.marvel.data.remote.MarvelRemoteDataSourceImpl
+import com.ronny.marvel.data.repository.CharacterRepositoryImpl
 import com.ronny.marvel.domain.repository.CharacterRepository
 import dagger.Module
 import dagger.Provides
@@ -26,13 +29,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun appRoomDatabaseProvider(@ApplicationContext context: Context) = AppRoomDatabase.buildDatabase(context)
+    fun appRoomDatabaseProvider(@ApplicationContext context: Context) =
+        AppRoomDatabase.buildDatabase(context)
 
     @Provides
     fun marvelDataDaoProvider(dataBase: AppRoomDatabase) = dataBase.marvelDataDao()
 
     @Provides
-    fun marvelLocalDataSourceProvider(marvelDataDao: MarvelDataDao) = MarvelLocalDataSource(marvelDataDao)
+    fun marvelLocalDataSourceProvider(marvelDataDao: MarvelDataDao): MarvelLocalDataSource =
+        MarvelLocalDataSourceImpl(marvelDataDao)
+
+    @Provides
+    @Singleton
+    fun marvelRemoteDataSourceProvider(retrofit: Retrofit): MarvelRemoteDataSource =
+        MarvelRemoteDataSourceImpl(retrofit)
 
 
     @Provides

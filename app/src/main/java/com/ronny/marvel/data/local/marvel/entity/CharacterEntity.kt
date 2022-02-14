@@ -9,9 +9,11 @@ import com.ronny.marvel.presentation.model.CharacterView
 
 @Entity(tableName = "CharacterEntity")
 data class CharacterEntity(
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     val id: Int,
+    @SerializedName("idCharacter")
+    val idCharacter: Int,
     @SerializedName("name")
     val name: String,
     @SerializedName("description")
@@ -30,6 +32,7 @@ data class CharacterEntity(
     companion object {
         fun empty() = CharacterEntity(
             0,
+            0,
             "",
             "",
             "",
@@ -43,7 +46,7 @@ data class CharacterEntity(
 
 
 fun CharacterEntity.toCharacterView(): CharacterView = CharacterView(
-    id,
+    idCharacter,
     name,
     description,
     modified,
@@ -55,7 +58,7 @@ fun CharacterEntity.toCharacterView(): CharacterView = CharacterView(
 
 fun CharacterEntity.toCharacterItem(): Character =
     Character(
-        id,
+        idCharacter,
         name,
         description,
         modified,

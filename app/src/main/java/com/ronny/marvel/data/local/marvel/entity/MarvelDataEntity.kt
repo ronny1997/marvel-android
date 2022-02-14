@@ -4,7 +4,7 @@ package com.ronny.marvel.data.local.marvel.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.ronny.marvel.domain.model.CharactersList
+import com.ronny.marvel.domain.model.MarvelData
 import com.ronny.marvel.presentation.model.MarvelDataView
 
 @Entity(tableName = "MarvelDataEntity")
@@ -36,7 +36,7 @@ fun MarvelDataEntity.toCharactersListView(): MarvelDataView = MarvelDataView(
     etag,
     data.toDataView()
 )
-fun MarvelDataEntity.toCharactersList(): CharactersList = CharactersList(
+fun MarvelDataEntity.toCharactersList(): MarvelData = MarvelData(
     code,
     status,
     copyright,

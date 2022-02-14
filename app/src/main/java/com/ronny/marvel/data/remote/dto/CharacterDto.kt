@@ -46,6 +46,7 @@ fun CharacterDto.toCharacter(): Character = Character(
     stories.toStories(),
 )
 fun CharacterDto.toCharacterEntity(): CharacterEntity = CharacterEntity(
+    0,
     id,
     name,
     description,

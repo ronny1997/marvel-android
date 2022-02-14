@@ -19,6 +19,9 @@ import com.ronny.marvel.databinding.FragmentCharactersListBinding
 import com.ronny.marvel.presentation.model.CharacterView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
+import okhttp3.internal.notify
+import okhttp3.internal.notifyAll
 
 @AndroidEntryPoint
 class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapterListener {
@@ -64,7 +67,12 @@ class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapter
                 if (charactersUiState.error.isNotEmpty()) {
                     binding.prbCharacter.visibility = View.GONE
                     binding.swpLayout.isRefreshing = false
-                    alertDialogError(charactersUiState.error)
+                    alertDialogError(charactersUiState.error) {
+                        val lastValue = charactersListViewModel.lastVisibility.replayCache.last()
+                        runBlocking {
+                            charactersListViewModel.getCharacterRemote(lastValue)
+                        }
+                    }
                 }
                 charactersUiState.charactersListView?.let {
                     binding.prbCharacter.visibility = View.GONE
@@ -81,6 +89,7 @@ class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapter
             layoutManager = GridLayoutManager(requireContext(), 3)
         }
     }
+
     private fun initListeners() {
         binding.swpLayout.setOnRefreshListener {
             characterAdapter?.itemCount?.let {
@@ -88,6 +97,7 @@ class CharactersListFragment : BaseFragment(), CharacterAdapter.CharacterAdapter
             }
         }
     }
+
     override fun clickListener(view: View, characterView: CharacterView?) {
         if (!binding.swpLayout.isRefreshing) {
             exitTransition = MaterialElevationScale(false).apply {

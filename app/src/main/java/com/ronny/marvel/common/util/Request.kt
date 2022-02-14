@@ -1,28 +1,38 @@
 package com.ronny.marvel.common.util
 
-import com.ronny.marvel.R
-import com.ronny.marvel.common.util.Resource
-import com.ronny.marvel.data.exception.Failure
 import retrofit2.Call
-import java.io.IOException
-import java.lang.Exception
 
 fun <T, R> request(
+    networkHandler: NetworkHandler,
     call: Call<T>,
     transform: (T) -> R,
-    default: T
-): Resource<Failure, R> {
-    val exception = runCatching {
-        call.execute()
-    }.onSuccess { response ->
-        return when (response.isSuccessful) {
-            true -> Resource.Success(transform((response.body() ?: default)))
-            false -> Resource.Error(Failure.ServerError(response.code(), response.message()))
+    default: T,
+    ): Resource<Failure, R> {
+    var exception: Throwable? = null
+    when (networkHandler.isNetworkAvailable()) {
+        true -> {
+            exception = runCatching {
+                call.execute()
+            }.onSuccess { response ->
+                return when (response.isSuccessful) {
+                    true -> Resource.Success(transform((response.body() ?: default)))
+                    false -> Resource.Error(
+                        Failure.ServerError(
+                            response.code(),
+                            response.message()
+                        )
+                    )
+                }
+            }.exceptionOrNull()
         }
-    }.exceptionOrNull()
+        false -> {
+            return Resource.Error(Failure.NetworkConnection(errorMessage = "NO INTERNET \nPlease check your network connection."))
+        }
+    }
+
 
     return Resource.Error(
-        Failure.CustomError(
+        Failure.ServerError(
             exception?.stackTrace.hashCode(),
             exception?.localizedMessage ?: "Error"
         )

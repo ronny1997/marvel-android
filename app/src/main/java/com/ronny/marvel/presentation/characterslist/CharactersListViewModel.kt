@@ -4,11 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.ronny.marvel.common.interactor.None
 import com.ronny.marvel.common.ui.BaseViewModel
 import com.ronny.marvel.common.util.Resource
-import com.ronny.marvel.domain.model.CharactersList
 import com.ronny.marvel.domain.use_case.GetCharacterRemoteUseCase
 import com.ronny.marvel.domain.use_case.GetCharactersUseCase
 import com.ronny.marvel.presentation.model.CharacterView
-import com.ronny.marvel.presentation.model.MarvelDataView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -50,10 +48,18 @@ class CharactersListViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private suspend fun getCharacterRemote(offset: Int = 0) {
+    suspend fun getCharacterRemote(offset: Int = 0) {
         getCharacterRemoteUseCase(GetCharacterRemoteUseCase.Params(offset)).onStart {
             _charactersUiState.value = CharactersListUiState(isLoading = true)
-        }.collect { }
+        }.collect {
+            when (it) {
+                is Resource.Error -> _charactersUiState.value =
+                    CharactersListUiState(error = handleFailure(it.error))
+                is Resource.Success -> {
+                    _charactersUiState.value = CharactersListUiState()
+                }
+            }
+        }
     }
 
     fun goToCharacterDetail(character: CharacterView) {

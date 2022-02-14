@@ -21,7 +21,8 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class CharacterDetailFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentDetailCharactersBinding
+    private var _binding: FragmentDetailCharactersBinding? = null
+    private val binding get() = _binding!!
 
     private val characterDetailViewModel: CharacterDetailViewModel by viewModels()
 
@@ -31,7 +32,7 @@ class CharacterDetailFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailCharactersBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailCharactersBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,16 +49,19 @@ class CharacterDetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val characterView = arguments?.get("characterView") as CharacterView
-        ViewCompat.setTransitionName(binding.root,"character_card_${characterView.id}")
-        characterDetailViewModel.getCharactersList(characterView.id?:-1)
+        binding.viewModel = characterDetailViewModel
+        ViewCompat.setTransitionName(binding.root, "character_card_${characterView.id}")
+        characterDetailViewModel.getCharactersList(characterView.id ?: -1)
         lifecycleScope.launchWhenStarted {
             characterDetailViewModel.characterUiState.collect { characterItemUiState ->
                 if (characterItemUiState.isLoading) {
-                        binding.prbCharacterItem.visibility = View.VISIBLE
+                    binding.prbCharacterItem.visibility = View.VISIBLE
                 }
                 if (characterItemUiState.error.isNotEmpty()) {
                     binding.prbCharacterItem.visibility = View.GONE
-                    alertDialogError(characterItemUiState.error)
+                    alertDialogError(characterItemUiState.error) {
+                        characterDetailViewModel.getCharactersList(characterView.id ?: -1)
+                    }
                 }
                 characterItemUiState.charactersListView?.let {
                     binding.prbCharacterItem.visibility = View.GONE
@@ -66,5 +70,11 @@ class CharacterDetailFragment : BaseFragment() {
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun getViewModel(): BaseViewModel = characterDetailViewModel
 }

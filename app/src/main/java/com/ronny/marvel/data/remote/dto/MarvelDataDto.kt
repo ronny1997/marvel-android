@@ -3,7 +3,7 @@ package com.ronny.marvel.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import com.ronny.marvel.data.local.marvel.entity.MarvelDataEntity
-import com.ronny.marvel.domain.model.CharactersList
+import com.ronny.marvel.domain.model.MarvelData
 import com.ronny.marvel.presentation.model.MarvelDataView
 
 data class MarvelDataDto(
@@ -34,7 +34,7 @@ fun MarvelDataDto.toMarvelDataView(): MarvelDataView = MarvelDataView(
     etag,
     data.toDataView()
 )
-fun MarvelDataDto.toMarvelData(): CharactersList = CharactersList(
+fun MarvelDataDto.toMarvelData(): MarvelData = MarvelData(
     code,
     status,
     copyright,

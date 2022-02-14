@@ -14,9 +14,13 @@ abstract class MarvelDataDao {
     abstract fun insertListCharacter(characterEntityList: List<CharacterEntity>)
 
     @Query("SELECT * FROM CharacterEntity")
-    abstract fun getCharacterEntityFlow():  Flow<List<CharacterEntity>>
+    abstract fun getCharactersEntityFlow():  Flow<List<CharacterEntity>>
 
     @Query("SELECT * FROM CharacterEntity")
-    abstract fun getCharacterEntity():  List<CharacterEntity>?
+    abstract fun getCharactersEntity():  List<CharacterEntity>?
+
+    @Query("SELECT * FROM CharacterEntity WHERE idCharacter = :id")
+    abstract fun getCharacterByIdEntity(id: Int):  CharacterEntity
+
 
 }

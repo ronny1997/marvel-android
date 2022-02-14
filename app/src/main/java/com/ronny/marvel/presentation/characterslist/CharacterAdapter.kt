@@ -18,6 +18,7 @@ class CharacterAdapter(private val listener: CharacterAdapterListener) :
 
 
     fun updateData(items: List<CharacterView>) {
+        listCharacterItem.clear()
         listCharacterItem.addAll(items)
         this.notifyItemInserted(listCharacterItem.size)
     }

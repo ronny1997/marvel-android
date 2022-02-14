@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import com.ronny.marvel.R
-import com.ronny.marvel.data.exception.Failure
+import com.ronny.marvel.common.util.Failure
 import com.ronny.marvel.common.util.Event
 
 

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.ronny.marvel.presentation.charactersdetail.CharacterDetailViewModel" />
         <variable
             name="characterView"
             type="com.ronny.marvel.presentation.model.CharacterView" />
@@ -32,16 +34,25 @@
                 android:paddingBottom="@dimen/grid_3">
 
                 <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="@{(view) -> viewModel.navigateBack()}"
+                    android:src="@drawable/ic_down_24"
+                    app:layoutDescription="@string/close_character"/>
+
+                <ImageView
                     android:id="@+id/imv_characters"
                     android:layout_width="0dp"
                     android:layout_height="400dp"
                     android:contentDescription="@string/character_marvel"
                     android:scaleType="centerInside"
                     android:transitionName="@{@string/character_detail_transition_name}"
-                    app:remote_url='@{characterView.thumbnail}'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:remote_url='@{characterView.thumbnail}' />
 
                 <TextView
                     android:id="@+id/tv_name_character"
@@ -121,14 +132,15 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
+
         <ProgressBar
             android:id="@+id/prb_character_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/character_card_view"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/character_card_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

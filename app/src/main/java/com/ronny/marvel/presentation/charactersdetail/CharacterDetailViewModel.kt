@@ -34,6 +34,7 @@ class CharacterDetailViewModel @Inject constructor(
             }
         }
     }
+
 }
 
 data class CharacterViewUiState(
